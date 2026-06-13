@@ -1,0 +1,420 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+@use 'article-meta-tags';
+
+.header {
+  width: 100%;
+  max-width: none;
+  margin: 0 0 $space-5;
+  display: grid;
+  gap: $space-3;
+  justify-items: center;
+  text-align: center;
+
+  .wo-tag {
+    justify-self: center;
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    letter-spacing: 0.14em;
+  }
+
+  p { color: $color-text-muted; font-size: $fs-md; margin: 0; }
+
+  &__title {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: $space-2;
+    font-size: clamp(1.2rem, 1.6vw + 0.65rem, 2.1rem);
+    letter-spacing: $tracking-tight;
+    line-height: 1.15;
+    text-align: center;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  &__title-line {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  @include breakpoint(md) {
+    &__title-line {
+      white-space: nowrap;
+    }
+  }
+}
+
+.contributor-cta {
+  margin: 0;
+  font-size: $fs-sm;
+  color: $color-text-muted;
+
+  &__link {
+    @include button-reset;
+    color: $color-teal;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-primary-dark;
+    }
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 900;
+  display: grid;
+  place-items: center;
+  padding: $space-4;
+  backdrop-filter: blur(3px);
+  animation: fade-in 0.15s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal {
+  position: relative;
+  background: $color-surface;
+  border: 1px solid rgba($color-teal, 0.22);
+  border-radius: $radius-lg;
+  padding: $space-7 $space-6;
+  max-width: 30rem;
+  width: 100%;
+  box-shadow: 0 24px 64px -12px rgba(0, 0, 0, 0.28);
+  animation: slide-up 0.18s ease;
+
+  @include breakpoint(sm) {
+    padding: $space-8 $space-7;
+  }
+
+  &__close {
+    @include button-reset;
+    position: absolute;
+    top: $space-4;
+    right: $space-4;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: $color-text-muted;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border-radius: $radius-sm;
+    transition: color $transition-fast, background $transition-fast;
+
+    &:hover {
+      color: $color-text;
+      background: rgba($color-teal, 0.08);
+    }
+  }
+
+  &__title {
+    margin: 0 0 $space-3;
+    font-size: $fs-xl;
+    color: $color-primary-dark;
+    padding-right: $space-6;
+  }
+
+  &__lead {
+    margin: 0 0 $space-5;
+    color: $color-text-muted;
+    line-height: $lh-loose;
+    font-size: $fs-md;
+  }
+
+  &__benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 $space-6;
+    display: grid;
+    gap: $space-3;
+
+    li {
+      padding-left: $space-6;
+      position: relative;
+      color: $color-text;
+      line-height: $lh-loose;
+      font-size: $fs-md;
+
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: $color-teal;
+        font-weight: 700;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.filters {
+  margin-bottom: $space-6;
+  padding: $space-3;
+  background: rgba($color-mint, 0.08);
+  border: 1px solid rgba($color-mint, 0.22);
+  border-radius: $radius-lg;
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-3;
+    align-items: center;
+    min-width: 0;
+
+    @include breakpoint(sm) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 2fr);
+    }
+  }
+
+  &__field {
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__control {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    display: block;
+  }
+}
+
+.state {
+  padding: $space-7;
+  text-align: center;
+  color: $color-text-muted;
+  background: $color-surface-alt;
+  border: 1px dashed rgba($color-teal, 0.25);
+  border-radius: $radius-lg;
+
+  &--error {
+    color: $color-error;
+    background: rgba($color-error, 0.06);
+    border-color: rgba($color-error, 0.30);
+    border-style: solid;
+  }
+}
+
+.empty-topic {
+  padding: $space-7 $space-5;
+  text-align: center;
+  max-width: 36rem;
+  margin: 0 auto;
+  background: linear-gradient(180deg, rgba($color-mint, 0.12) 0%, $color-surface-alt 100%);
+  border: 1px solid rgba($color-teal, 0.22);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+
+  &__emoji {
+    font-size: 2.5rem;
+    line-height: 1;
+    display: block;
+    margin-bottom: $space-3;
+  }
+
+  &__title {
+    margin: 0 0 $space-3;
+    font-size: $fs-xl;
+    color: $color-primary-dark;
+  }
+
+  &__lead {
+    margin: 0 0 $space-3;
+    color: $color-text-muted;
+    line-height: $lh-loose;
+    font-size: $fs-md;
+
+    strong {
+      color: $color-primary-dark;
+    }
+  }
+
+  &__cta {
+    margin: 0 0 $space-5;
+    font-size: $fs-md;
+    font-weight: 600;
+    color: $color-text;
+    line-height: $lh-loose;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+    justify-content: center;
+  }
+}
+
+.grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: $space-5;
+
+  @include breakpoint(md) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @include breakpoint(lg) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.article-card {
+  @include card;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($color-teal, 0.35);
+    box-shadow: 0 22px 50px -28px rgba($color-teal, 0.5);
+
+    .article-card__cover img {
+      transform: scale(1.08);
+    }
+  }
+
+  &__cover {
+    flex-shrink: 0;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    display: grid;
+    place-items: center;
+    padding: $space-2;
+    background: linear-gradient(
+      180deg,
+      rgba($color-mint, 0.14) 0%,
+      rgba($color-white, 0.92) 100%
+    );
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      transform: scale(1.1);
+      transform-origin: center center;
+      transition: transform $transition-slow;
+    }
+  }
+
+  &__link {
+    flex: 1 1 auto;
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  &__share {
+    flex-shrink: 0;
+    padding: $space-3 $space-4 $space-4;
+    border-top: 1px solid rgba($color-border, 0.6);
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: $space-3;
+    padding: $space-4;
+    min-height: 6.5rem;
+    text-align: left;
+  }
+
+  &__body h3 {
+    flex: 1 1 auto;
+    margin: 0;
+    font-family: $font-display;
+    font-size: $fs-md;
+    line-height: $lh-loose;
+    color: $color-primary-dark;
+    text-align: left;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  &__footer {
+    flex-shrink: 0;
+    margin: 0;
+    padding-top: $space-3;
+    border-top: 1px solid rgba($color-teal, 0.12);
+    width: 100%;
+    display: grid;
+    gap: $space-2;
+    text-align: left;
+  }
+
+  &__meta {
+    margin: 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-2;
+    font-size: $fs-xs;
+    color: $color-text-muted;
+  }
+
+  &__brand {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: $color-primary-dark;
+  }
+
+  &__lang {
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-teal;
+  }
+}
+
+.list-footer {
+  display: grid;
+  gap: $space-4;
+  justify-items: center;
+  margin-top: $space-7;
+  padding-top: $space-5;
+  border-top: 1px solid $color-border-soft;
+
+  &__count {
+    margin: 0;
+    font-size: $fs-sm;
+    color: $color-text-muted;
+  }
+
+  &__more {
+    min-width: 12rem;
+  }
+}

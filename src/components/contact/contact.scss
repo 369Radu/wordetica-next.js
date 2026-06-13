@@ -1,0 +1,161 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+
+.layout {
+  display: grid;
+  gap: $space-7;
+
+  @include breakpoint(md) { grid-template-columns: 1fr 1.2fr; }
+}
+
+.intro {
+  display: grid;
+  gap: $space-3;
+  align-content: start;
+  justify-items: stretch;
+  width: 100%;
+  min-width: 0;
+
+  > .wo-tag,
+  > h1 {
+    justify-self: center;
+  }
+
+  h1 { margin: 0; text-align: center; }
+  p {
+    color: $color-text-muted;
+    max-width: 50ch;
+    margin: 0 auto;
+    text-align: justify;
+  }
+}
+
+.info {
+  list-style: none;
+  padding: 0;
+  margin: $space-4 auto 0;
+  display: grid;
+  gap: $space-2;
+  width: 100%;
+  max-width: 380px;
+
+  li {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: $space-3;
+    align-items: baseline;
+    padding: $space-3 0;
+    border-bottom: 1px solid $color-border-soft;
+    text-align: left;
+
+    &:last-child { border-bottom: 0; }
+  }
+
+  strong {
+    color: $color-primary-dark;
+    font-size: $fs-xs;
+    text-transform: uppercase;
+    letter-spacing: $tracking-wider;
+  }
+
+  span {
+    line-height: $lh-loose;
+  }
+
+  &__locations {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: $space-1;
+    line-height: $lh-loose;
+
+    li { white-space: nowrap; }
+  }
+
+  &__locations-item {
+    align-items: start;
+  }
+}
+
+.form {
+  @include card;
+  padding: $space-6;
+  display: grid;
+  gap: $space-4;
+  background: linear-gradient(160deg, $color-surface 0%, $color-surface-alt 100%);
+  border-color: rgba($color-mint, 0.30);
+}
+
+.field { display: grid; gap: $space-2; }
+
+.form__legal {
+  margin: 0;
+  font-size: $fs-xs;
+  line-height: $lh-base;
+  color: $color-text-muted;
+
+  a {
+    color: $color-teal;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
+}
+
+.contact-visual {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: $space-5 0 0;
+  padding: 0;
+  overflow: hidden;
+  line-height: 0;
+  background: $color-white;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: clamp(3rem, 22%, 8rem);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(
+      90deg,
+      $color-white 0%,
+      $color-white 28%,
+      rgba($color-white, 0.92) 52%,
+      rgba($color-white, 0.55) 72%,
+      transparent 100%
+    );
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(
+      270deg,
+      $color-white 0%,
+      $color-white 28%,
+      rgba($color-white, 0.92) 52%,
+      rgba($color-white, 0.55) 72%,
+      transparent 100%
+    );
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+}

@@ -1,0 +1,19 @@
+@use 'theme' as *;
+
+.char-counter {
+  margin: 0;
+  font-size: $fs-xs;
+  color: $color-text-muted;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-1;
+  align-items: center;
+
+  &__sep {
+    opacity: 0.55;
+  }
+
+  &__max {
+    color: rgba($color-teal, 0.85);
+  }
+}

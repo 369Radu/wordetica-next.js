@@ -1,0 +1,341 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+
+// Tonuri preluate din zona contact / brand (blend pe fundal închis)
+$footer-blend-pink: #ff88ba;
+$footer-blend-rose: #ff5eaa;
+$footer-blend-mint: #66d0bc;
+$footer-blend-teal: #3a8b95;
+
+:host { display: contents; }
+
+.footer {
+  position: relative;
+  margin-top: 0;
+  box-shadow: none;
+  background: linear-gradient(180deg, #0e1f23 0%, #0c1c20 35%, #07171b 100%);
+  color: $color-text-inverse;
+  padding: $space-5 0 $space-3;
+  overflow: hidden;
+  isolation: isolate;
+
+  // Roz (Explore) + verde (Connect): radiale suprapuse, fără muchie la mijloc
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        ellipse 120% 100% at 50% -12%,
+        rgba($footer-blend-mint, 0.14) 0%,
+        rgba($footer-blend-rose, 0.1) 38%,
+        transparent 68%
+      ),
+      radial-gradient(
+        ellipse 72% 110% at 0% 0%,
+        rgba($footer-blend-pink, 0.34) 0%,
+        rgba($footer-blend-rose, 0.18) 32%,
+        rgba($footer-blend-rose, 0.06) 58%,
+        transparent 82%
+      ),
+      radial-gradient(
+        ellipse 72% 110% at 100% 0%,
+        rgba($footer-blend-mint, 0.36) 0%,
+        rgba($footer-blend-teal, 0.2) 32%,
+        rgba($footer-blend-teal, 0.07) 58%,
+        transparent 82%
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // Doar întunecare graduală spre bază (fără bandă verticală la centru)
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(#0a1a1e, 0.25) 45%,
+      rgba(#07171b, 0.72) 78%,
+      rgba(#07171b, 0.92) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a {
+    color: rgba($color-white, 0.78);
+    text-decoration: none;
+    transition: color $transition-fast;
+
+    &:hover { color: $color-mint; }
+  }
+
+  &__inner,
+  &__bottom {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__inner {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-5;
+    justify-items: stretch;
+    text-align: center;
+
+    @include breakpoint(md) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: $space-4;
+      align-items: start;
+    }
+  }
+
+  &__brand,
+  &__column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+  }
+
+  &__brand-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    margin-bottom: $space-2;
+    padding: $space-2 $space-3;
+    background: $color-white;
+    border-radius: $radius-md;
+  }
+
+  &__brand-name {
+    font-family: $font-display;
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    font-weight: 700;
+    color: $color-white;
+    text-decoration: none;
+    letter-spacing: $tracking-wide;
+    background: transparent;
+    padding: 0;
+    margin-bottom: $space-3;
+    line-height: 1;
+  }
+
+  &__logo {
+    height: 2.25rem;
+    width: auto;
+    max-width: 7rem;
+    display: block;
+    object-fit: contain;
+
+    @include breakpoint(md) {
+      height: 2.5rem;
+      max-width: 8rem;
+    }
+  }
+
+  &__tagline {
+    max-width: 16rem;
+    color: rgba($color-white, 0.65);
+    line-height: $lh-base;
+    font-size: $fs-sm;
+    margin: 0 0 $space-2;
+  }
+
+  &__contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: $space-3;
+    width: 100%;
+    max-width: 20rem;
+    margin-inline: auto;
+  }
+
+  &__email {
+    display: inline-flex;
+    align-items: center;
+    color: $color-mint;
+    font-weight: 600;
+    font-size: $fs-sm;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  &__heading {
+    font-family: $font-sans;
+    font-size: $fs-xs;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: $tracking-wider;
+    margin: 0 0 $space-2;
+    color: $color-mint;
+  }
+
+  &__column--social ::ng-deep .social-links__btn {
+      border-color: rgba($color-white, 0.22);
+      background: rgba($color-white, 0.06);
+      color: rgba($color-white, 0.88);
+
+    &:hover {
+      background: rgba($color-mint, 0.2);
+      border-color: $color-mint;
+      color: $color-mint;
+    }
+  }
+
+  &__column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-1;
+    width: 100%;
+  }
+
+  &__auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    pointer-events: auto;
+  }
+
+  &__auth-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+  }
+
+  &__sign-in {
+    @include button-reset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 5.75rem;
+    padding: 0.3rem $space-4;
+    font-family: inherit;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: $radius-pill;
+    border: 1px solid transparent;
+    transition:
+      color $transition-fast,
+      background $transition-fast,
+      border-color $transition-fast,
+      opacity $transition-fast;
+
+    &--primary {
+      color: rgba($color-mint, 0.9);
+      background:
+        linear-gradient(
+          135deg,
+          rgba($color-mint, 0.1) 0%,
+          rgba($color-teal, 0.05) 55%,
+          rgba($color-mint, 0.08) 100%
+        )
+        padding-box,
+        linear-gradient(135deg, rgba($color-mint, 0.55), rgba($color-teal, 0.35)) border-box;
+      border: 1px solid transparent;
+      box-shadow: none;
+
+      &:hover {
+        color: $color-mint;
+        background:
+          linear-gradient(
+            135deg,
+            rgba($color-mint, 0.16) 0%,
+            rgba($color-teal, 0.1) 100%
+          )
+          padding-box,
+          linear-gradient(135deg, rgba($color-mint, 0.7), rgba($color-teal, 0.45)) border-box;
+      }
+    }
+
+    &--ghost {
+      min-width: 5.25rem;
+      color: rgba($color-white, 0.72);
+      background: transparent;
+      border-color: rgba($color-white, 0.22);
+
+      &:hover {
+        color: rgba($color-mint, 0.95);
+        border-color: rgba($color-mint, 0.45);
+        background: linear-gradient(
+          135deg,
+          rgba($color-mint, 0.08) 0%,
+          rgba($color-teal, 0.04) 100%
+        );
+      }
+    }
+  }
+
+  &__bottom {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    margin-top: $space-5;
+    padding-top: $space-4;
+    border-top: 1px solid rgba($color-white, 0.12);
+    font-size: $fs-xs;
+    color: rgba($color-white, 0.55);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $space-3;
+    text-align: center;
+    pointer-events: auto;
+
+    @include breakpoint(md) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+
+      .footer__copyright {
+        text-align: left;
+      }
+
+      .footer__made-by {
+        text-align: right;
+      }
+    }
+  }
+
+  &__copyright {
+    margin: 0;
+  }
+
+  &__made-by {
+    font-size: $fs-xs;
+    color: rgba($color-white, 0.45);
+
+    a {
+      color: rgba($color-white, 0.7);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color $transition-fast;
+
+      &:hover {
+        color: $color-mint;
+      }
+    }
+  }
+}

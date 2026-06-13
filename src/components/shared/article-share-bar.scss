@@ -1,0 +1,109 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+
+.share-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  width: 100%;
+  box-sizing: border-box;
+
+  &--compact {
+    justify-content: flex-start;
+    gap: $space-1;
+
+    .share-bar__label {
+      font-size: $fs-xs;
+    }
+
+    .share-btn {
+      width: 2rem;
+      height: 2rem;
+
+      .social-icon {
+        width: 0.95rem;
+        height: 0.95rem;
+      }
+    }
+  }
+
+  &__label {
+    font-size: $fs-sm;
+    font-weight: 700;
+    letter-spacing: $tracking-wide;
+    text-transform: uppercase;
+    color: $color-text-muted;
+  }
+
+  &__actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  &__toast {
+    margin: 0;
+    padding: $space-1 $space-3;
+    font-size: $fs-xs;
+    font-weight: 600;
+    color: $color-primary-dark;
+    background: rgba($color-mint, 0.25);
+    border-radius: $radius-pill;
+    animation: share-toast-in 0.2s ease-out;
+  }
+}
+
+.share-btn {
+  @include button-reset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: $radius-pill;
+  color: $color-primary-dark;
+  background: rgba($color-mint, 0.15);
+  border: 1px solid rgba($color-teal, 0.2);
+  text-decoration: none;
+  transition:
+    background $transition-fast,
+    color $transition-fast,
+    transform $transition-fast,
+    box-shadow $transition-fast;
+
+  .social-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  &:hover {
+    color: $color-text-inverse;
+    background: linear-gradient(135deg, $color-teal 0%, $color-primary-dark 100%);
+    border-color: transparent;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px -8px rgba($color-teal, 0.55);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &--whatsapp:hover {
+    background: #25d366;
+  }
+}
+
+@keyframes share-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

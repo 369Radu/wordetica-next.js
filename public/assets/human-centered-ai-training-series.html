@@ -1,0 +1,3468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human-Centered AI Literacy Training Series · Wordetica</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hot-pink: #FF3E9B;
+    --soft-pink: #FF88BA;
+    --teal-dark: #3A8B95;
+    --teal-light: #66D0BC;
+    --ink: #0f1117;
+    --off-white: #faf8f5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #e8e6e2;
+    color: var(--ink);
+  }
+
+  /* ── PAGE SHELL ── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 32px;
+    background: var(--off-white);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+  }
+
+  @media screen {
+    body { padding: 32px 0 64px; }
+    .page { box-shadow: 0 8px 48px rgba(0,0,0,0.18); }
+  }
+
+  /* ── SHARED TYPE ── */
+  .mono {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .serif { font-family: 'Playfair Display', serif; }
+
+  /* ────────────────────────────────
+     COVER PAGE
+  ──────────────────────────────── */
+  .cover {
+    background: var(--ink);
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 100% 0%, rgba(255,62,155,0.28) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 50% at 0% 100%, rgba(102,208,188,0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cover-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 56px 52px 40px;
+    z-index: 1;
+    position: relative;
+  }
+
+  .cover-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 36px;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1.0;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .cover-title em { font-style: italic; color: var(--hot-pink); }
+
+  .cover-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--soft-pink);
+    margin-bottom: 32px;
+  }
+
+  .cover-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    max-width: 400px;
+    margin-bottom: 44px;
+  }
+
+  .cover-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .cover-pillar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .cp-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--hot-pink);
+    letter-spacing: 0.1em;
+    width: 28px;
+    flex-shrink: 0;
+  }
+
+  .cp-bar {
+    height: 1px;
+    width: 28px;
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+
+  .cp-name {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+  }
+
+  .cp-name strong {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .cover-tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ctag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+  }
+  .ctag.pink { background: rgba(255,62,155,0.14); color: var(--soft-pink); border: 1px solid rgba(255,62,155,0.3); }
+  .ctag.teal { background: rgba(102,208,188,0.1); color: var(--teal-light); border: 1px solid rgba(102,208,188,0.25); }
+
+  .cover-footer {
+    z-index: 1;
+    position: relative;
+    padding: 22px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .cover-footer .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .cover-footer .brand span {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+  .cover-footer .pgnum {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ────────────────────────────────
+     LEVEL PAGES
+  ──────────────────────────────── */
+  .level-page {
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header stripe */
+  .lp-header {
+    padding: 36px 48px 30px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .lp-header::after {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    opacity: 0.12;
+    background: #fff;
+  }
+
+  /* per-level accent colours applied inline */
+  .lp-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+  }
+
+  .lp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 6px;
+    max-width: 480px;
+  }
+
+  .lp-audience {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lp-audience::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: rgba(255,255,255,0.4);
+  }
+
+  /* Body area */
+  .lp-body {
+    flex: 1;
+    padding: 28px 48px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 28px;
+  }
+
+  /* Vision block – full width */
+  .lp-vision {
+    grid-column: 1 / -1;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    border-left: 3px solid var(--hot-pink);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .lp-vision-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--hot-pink);
+    white-space: nowrap;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .lp-vision-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* Objectives */
+  .lp-objectives {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .lp-block-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .lp-obj-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .lp-obj-list li {
+    font-size: 12.5px;
+    color: #444;
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .lp-obj-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    top: 2px;
+    color: var(--soft-pink);
+  }
+
+  /* Modules */
+  .lp-modules {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .lp-module-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .lp-module {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .lp-mod-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    width: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .lp-mod-content {}
+
+  .lp-mod-name {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 3px;
+  }
+
+  .lp-mod-topics {
+    font-size: 11px;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  /* Assessment strip */
+  .lp-assessment {
+    grid-column: 1 / -1;
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .lp-assess-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .lp-assess-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lp-assess-tag {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 5px 12px;
+  }
+
+  /* Page footer */
+  .lp-footer {
+    padding: 14px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e8e6e2;
+    flex-shrink: 0;
+  }
+
+  .lp-footer .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .lp-footer .brand span {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-left: 8px;
+  }
+  .lp-footer .pgnum {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #bbb;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ────────────────────────────────
+     PAGE 1 – COVER
+──────────────────────────────── -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Wordetica &nbsp;·&nbsp; <em style="font-style:italic;letter-spacing:0.08em;">Language-Driven</em></div>
+    <div class="cover-title"><em>Human-Centered</em><br>AI Training</div>
+    <div class="cover-subtitle">Series</div>
+    <p class="cover-desc">A progressive, six-level series equipping learners from primary school to professional research with the knowledge, critical thinking, and ethical awareness to understand, evaluate, and use artificial intelligence responsibly.</p>
+
+    <div class="cover-pillars">
+      <div class="cover-pillar">
+        <span class="cp-num">L1</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for Primary Education</strong> ·  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human-Centered AI Literacy Training Series · Wordetica</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hot-pink: #FF3E9B;
+    --soft-pink: #FF88BA;
+    --teal-dark: #3A8B95;
+    --teal-light: #66D0BC;
+    --ink: #0f1117;
+    --off-white: #faf8f5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #e8e6e2;
+    color: var(--ink);
+  }
+
+  /* ── PAGE SHELL ── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 32px;
+    background: var(--off-white);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+  }
+
+  @media screen {
+    body { padding: 32px 0 64px; }
+    .page { box-shadow: 0 8px 48px rgba(0,0,0,0.18); }
+  }
+
+  /* ── SHARED TYPE ── */
+  .mono {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .serif { font-family: 'Playfair Display', serif; }
+
+  /* ────────────────────────────────
+     COVER PAGE
+  ──────────────────────────────── */
+  .cover {
+    background: var(--ink);
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 100% 0%, rgba(255,62,155,0.28) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 50% at 0% 100%, rgba(102,208,188,0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cover-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 56px 52px 40px;
+    z-index: 1;
+    position: relative;
+  }
+
+  .cover-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 36px;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1.0;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .cover-title em { font-style: italic; color: var(--hot-pink); }
+
+  .cover-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--soft-pink);
+    margin-bottom: 32px;
+  }
+
+  .cover-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    max-width: 400px;
+    margin-bottom: 44px;
+  }
+
+  .cover-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .cover-pillar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .cp-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--hot-pink);
+    letter-spacing: 0.1em;
+    width: 28px;
+    flex-shrink: 0;
+  }
+
+  .cp-bar {
+    height: 1px;
+    width: 28px;
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+
+  .cp-name {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+  }
+
+  .cp-name strong {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .cover-tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ctag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+  }
+  .ctag.pink { background: rgba(255,62,155,0.14); color: var(--soft-pink); border: 1px solid rgba(255,62,155,0.3); }
+  .ctag.teal { background: rgba(102,208,188,0.1); color: var(--teal-light); border: 1px solid rgba(102,208,188,0.25); }
+
+  .cover-footer {
+    z-index: 1;
+    position: relative;
+    padding: 22px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .cover-footer .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .cover-footer .brand span {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+  .cover-footer .pgnum {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ────────────────────────────────
+     LEVEL PAGES
+  ──────────────────────────────── */
+  .level-page {
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header stripe */
+  .lp-header {
+    padding: 36px 48px 30px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .lp-header::after {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    opacity: 0.12;
+    background: #fff;
+  }
+
+  /* per-level accent colours applied inline */
+  .lp-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+  }
+
+  .lp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 6px;
+    max-width: 480px;
+  }
+
+  .lp-audience {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lp-audience::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: rgba(255,255,255,0.4);
+  }
+
+  /* Body area */
+  .lp-body {
+    flex: 1;
+    padding: 28px 48px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 28px;
+  }
+
+  /* Vision block – full width */
+  .lp-vision {
+    grid-column: 1 / -1;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    border-left: 3px solid var(--hot-pink);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .lp-vision-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--hot-pink);
+    white-space: nowrap;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .lp-vision-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* Objectives */
+  .lp-objectives {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .lp-block-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .lp-obj-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .lp-obj-list li {
+    font-size: 12.5px;
+    color: #444;
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .lp-obj-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    top: 2px;
+    color: var(--soft-pink);
+  }
+
+  /* Modules */
+  .lp-modules {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .lp-module-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .lp-module {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .lp-mod-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    width: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .lp-mod-content {}
+
+  .lp-mod-name {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 3px;
+  }
+
+  .lp-mod-topics {
+    font-size: 11px;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  /* Assessment strip */
+  .lp-assessment {
+    grid-column: 1 / -1;
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .lp-assess-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .lp-assess-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lp-assess-tag {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 5px 12px;
+  }
+
+  /* Page footer */
+  .lp-footer {
+    padding: 14px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e8e6e2;
+    flex-shrink: 0;
+  }
+
+  .lp-footer .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .lp-footer .brand span {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-left: 8px;
+  }
+  .lp-footer .pgnum {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #bbb;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ────────────────────────────────
+     PAGE 1 – COVER
+──────────────────────────────── -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Wordetica &nbsp;·&nbsp; <em style="font-style:italic;letter-spacing:0.08em;">Language-Driven</em></div>
+    <div class="cover-title"><em>Human-Centered</em><br>AI Training</div>
+    <div class="cover-subtitle">Series</div>
+    <p class="cover-desc">A progressive, six-level series equipping learners from primary school to professional research with the knowledge, critical thinking, and ethical awareness to understand, evaluate, and use artificial intelligence responsibly.</p>
+
+    <div class="cover-pillars">
+      <div class="cover-pillar">
+        <span class="cp-num">L1</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for Primary Education</strong> · Ages 6–11</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L2</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for Secondary Education</strong> · Ages 12–15</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L3</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for High School Education</strong> · Ages 16–18</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L4</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for Higher Education</strong> · Undergraduate &amp; Postgraduate</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L5</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Academic Writing &amp; Research Communication</strong> · Researchers &amp; Academics</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L6</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Translation Technologies &amp; Multilingual AI</strong> · Language Professionals</div>
+      </div>
+    </div>
+
+    <div class="cover-tag-row">
+      <span class="ctag pink">Critical Thinking</span>
+      <span class="ctag teal">AI Ethics</span>
+      <span class="ctag pink">Research Skills</span>
+      <span class="ctag teal">Multilingual AI</span>
+      <span class="ctag pink">Academic Integrity</span>
+      <span class="ctag teal">Prompt Engineering</span>
+    </div>
+
+    <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(102,208,188,0.25);border-left:3px solid var(--teal-light);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:15px;flex-shrink:0;margin-top:1px;">💡</div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-light);margin-bottom:5px;">Flexible Enrolment</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;">Each level is available as a <strong style="color:#fff;font-weight:500;">standalone course</strong> and can be opted for independently. Participants may enrol in whichever level best matches their context and needs. All courses are delivered <strong style="color:#fff;font-weight:500;">online</strong>.</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,136,186,0.25);border-left:3px solid var(--soft-pink);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:15px;flex-shrink:0;margin-top:1px;">🎉</div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--soft-pink);margin-bottom:5px;">Certificate of Completion</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;">A <strong style="color:#fff;font-weight:500;">certificate of completion</strong> is awarded at the end of every level, recognising the participant's achievement upon successfully completing the course requirements.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="brand">Wordetica
+      <span>Human-Centered AI Literacy Training Series</span>
+    </div>
+    <div class="pgnum">01 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 2 – LEVEL 1
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #FF3E9B 0%, #c42070 100%);">
+    <div class="lp-eyebrow">Level 1 · Primary Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for Primary Education</div>
+    <div class="lp-audience">Target audience: Learners aged 6–11</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label">Programme Vision</div>
+      <div class="lp-vision-text">"Helping young learners understand what AI is, where it appears in their daily lives, and how to engage with it safely, creatively, and responsibly."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand what AI is in simple, accessible terms</li>
+        <li>Recognise AI systems encountered in everyday life</li>
+        <li>Use AI tools safely and responsibly</li>
+        <li>Develop foundational digital citizenship skills</li>
+        <li>Explore creativity and learning through AI-supported activities</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">What Is AI?</div>
+            <div class="lp-mod-topics">Machines that learn · AI vs humans · What AI can and cannot do</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI in Everyday Life</div>
+            <div class="lp-mod-topics">Smart assistants · Recommendation systems · Games &amp; entertainment</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Safe and Responsible AI Use</div>
+            <div class="lp-mod-topics">Privacy &amp; personal information · Safe online behaviour · Trustworthy information</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Creativity and Learning with AI</div>
+            <div class="lp-mod-topics">Storytelling · Drawing &amp; image generation · Brainstorming · Learning support</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Digital Citizenship</div>
+            <div class="lp-mod-topics">Respectful communication · Digital footprints · Healthy technology habits</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI-assisted storytelling exercises</span>
+        <span class="lp-assess-tag">Creative drawing &amp; image generation tasks</span>
+        <span class="lp-assess-tag">Digital safety role-play activities</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">02 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 3 – LEVEL 2
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #FF88BA 0%, #e05090 100%);">
+    <div class="lp-eyebrow">Level 2 · Secondary Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for Secondary Education</div>
+    <div class="lp-audience">Target audience: Learners aged 12–15</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--soft-pink)">Programme Vision</div>
+      <div class="lp-vision-text">"Building critical thinking, media literacy, and ethical awareness so young people can navigate an AI-saturated information environment with confidence and discernment."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--soft-pink);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand how AI systems work at a foundational level</li>
+        <li>Develop critical thinking about AI-generated content</li>
+        <li>Identify misinformation, deepfakes, and manipulation</li>
+        <li>Apply ethical principles when using AI</li>
+        <li>Begin communicating effectively with AI systems</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--soft-pink);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Understanding AI Systems</div>
+            <div class="lp-mod-topics">How AI learns · Training &amp; prediction · Algorithms · Limitations</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Critical Thinking and AI</div>
+            <div class="lp-mod-topics">Evaluating AI information · Fact-checking · Detecting hallucinations · Human oversight</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI and Media Literacy</div>
+            <div class="lp-mod-topics">Deepfakes · Synthetic media · Misinformation · Social media algorithms</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Ethics, Fairness, and Bias</div>
+            <div class="lp-mod-topics">Sources of bias · Fairness in AI · Representation &amp; inclusion · Ethical decision-making</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Introduction to Prompting</div>
+            <div class="lp-mod-topics">Asking effective questions · Clear instructions · Evaluating &amp; improving AI responses</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">Deepfake and misinformation detection exercises</span>
+        <span class="lp-assess-tag">Bias audit of AI-generated content</span>
+        <span class="lp-assess-tag">Hands-on prompt design and evaluation tasks</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">03 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 4 – LEVEL 3
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #3A8B95 0%, #236570 100%);">
+    <div class="lp-eyebrow">Level 3 · High School Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for High School Education</div>
+    <div class="lp-audience">Target audience: Learners aged 16–18</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--teal-dark)">Programme Vision</div>
+      <div class="lp-vision-text">"Preparing students to use generative AI as a genuine learning tool - conducting better research, thinking about societal impact, and making informed choices about their futures in an AI-transformed world."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand generative AI technologies and how they work</li>
+        <li>Apply AI effectively in study and learning contexts</li>
+        <li>Conduct AI-supported academic research</li>
+        <li>Analyse the societal impacts of AI systems</li>
+        <li>Explore future educational and career pathways in an AI-enabled world</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Generative AI and Large Language Models</div>
+            <div class="lp-mod-topics">How generative AI works · LLMs · Strengths &amp; limitations · Emerging technologies</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI-Assisted Learning</div>
+            <div class="lp-mod-topics">Study support · Personalised learning · Note-taking &amp; summarisation · Productivity</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Research Skills in the Age of AI</div>
+            <div class="lp-mod-topics">Information literacy · Source evaluation · Academic research · AI-assisted inquiry</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI Ethics and Governance</div>
+            <div class="lp-mod-topics">Regulation &amp; policy · Intellectual property · Data protection · Responsible innovation</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Future Careers and AI</div>
+            <div class="lp-mod-topics">Changing job markets · Human-AI collaboration · Emerging professions · Lifelong learning</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI-supported research project</span>
+        <span class="lp-assess-tag">Ethics and governance case study</span>
+        <span class="lp-assess-tag">Career futures exploration portfolio</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">04 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 5 – LEVEL 4
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #66D0BC 0%, #3aaa94 100%);">
+    <div class="lp-eyebrow">Level 4 · Higher Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for Higher Education</div>
+    <div class="lp-audience">Target audience: Undergraduate &amp; postgraduate students, all disciplines</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--teal-light)">Programme Vision</div>
+      <div class="lp-vision-text">"Equipping university students across all disciplines with the critical AI literacy, responsible use practices, and prompt engineering skills needed to engage with AI as thoughtful, academically grounded scholars."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: #2a9980;">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Demonstrate AI literacy and critical evaluation skills</li>
+        <li>Use AI effectively for learning and academic research</li>
+        <li>Apply prompt engineering techniques in scholarly contexts</li>
+        <li>Understand and uphold academic integrity requirements</li>
+        <li>Make informed, ethically grounded decisions regarding AI use</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: #2a9980;">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI Literacy and Critical Evaluation</div>
+            <div class="lp-mod-topics">Understanding AI systems · Evaluating outputs · Reliability · Human oversight</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Prompt Engineering</div>
+            <div class="lp-mod-topics">Design principles · Iterative prompting · Role prompting · Research prompting</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Academic Integrity and AI</div>
+            <div class="lp-mod-topics">Responsible AI use · Transparency &amp; disclosure · Institutional policies · Ethics</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI for Learning and Productivity</div>
+            <div class="lp-mod-topics">Knowledge management · Study support · Project planning · Collaboration tools</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Responsible and Ethical AI Use</div>
+            <div class="lp-mod-topics">Bias &amp; fairness · Privacy &amp; security · Sustainability · Human-centered design</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI literacy and critical evaluation portfolio</span>
+        <span class="lp-assess-tag">Discipline-specific prompt engineering project</span>
+        <span class="lp-assess-tag">Ethical reflection and disclosure report</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">05 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 6 – LEVEL 5
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #0f1117 0%, #1e2535 100%); border-bottom: 3px solid var(--hot-pink);">
+    <div class="lp-eyebrow">Level 5 · Academic Research Specialisation</div>
+    <div class="lp-title">Human-Centered AI: Academic Writing<br>and Research Communication</div>
+    <div class="lp-audience">Target audience: Advanced undergraduates, postgraduates, researchers &amp; academics</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label">Programme Vision</div>
+      <div class="lp-vision-text">"Enabling researchers and academics to integrate AI into rigorous scholarly workflows - from literature discovery to publication ethics - while maintaining the methodological integrity and intellectual ownership their work demands."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Integrate AI into academic writing workflows responsibly</li>
+        <li>Conduct systematic literature exploration with AI support</li>
+        <li>Improve research communication practices for diverse audiences</li>
+        <li>Critically evaluate AI-assisted outputs at every research stage</li>
+        <li>Maintain academic integrity and ethical disclosure standards</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI-Assisted Academic Writing</div>
+            <div class="lp-mod-topics">Idea development · Outlining · Drafting support · Revision strategies</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Literature Reviews and Knowledge Discovery</div>
+            <div class="lp-mod-topics">Search strategies · AI-powered research tools · Evidence synthesis · Gap identification</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI-Supported Research Workflows</div>
+            <div class="lp-mod-topics">Research planning · Data organisation · Project management · Knowledge management</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Scholarly Communication</div>
+            <div class="lp-mod-topics">Academic style · Audience adaptation · Research dissemination · Public communication</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Publication Ethics and Responsible AI</div>
+            <div class="lp-mod-topics">Authorship · Transparency · Citation practices · Ethical disclosure</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI-assisted systematic literature review</span>
+        <span class="lp-assess-tag">Research communication and dissemination portfolio</span>
+        <span class="lp-assess-tag">Authorship and AI use statement</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">06 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 7 – LEVEL 6
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #3A8B95 0%, #FF3E9B 100%);">
+    <div class="lp-eyebrow">Level 6 · Language Technology Specialisation</div>
+    <div class="lp-title">Human-Centered AI: Translation Technologies<br>and Multilingual AI</div>
+    <div class="lp-audience">Target audience: Students &amp; professionals in translation, linguistics, localization &amp; language fields</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--teal-dark)">Programme Vision</div>
+      <div class="lp-vision-text">"Equipping language professionals and researchers to critically understand, evaluate, and work with the full spectrum of translation and multilingual AI technologies - from NLP foundations to ethical implications for low-resource languages."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand the evolution of language technologies and NLP</li>
+        <li>Analyse machine translation systems across their historical development</li>
+        <li>Evaluate multilingual AI tools critically and practically</li>
+        <li>Apply localisation principles in professional contexts</li>
+        <li>Critically assess linguistic and cultural implications of AI in language work</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Foundations of Natural Language Processing</div>
+            <div class="lp-mod-topics">Language &amp; computation · Linguistic data · Core NLP tasks · Language resources</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">History of Machine Translation</div>
+            <div class="lp-mod-topics">Rule-based systems · Statistical MT · Neural MT · Contemporary developments</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Neural Machine Translation</div>
+            <div class="lp-mod-topics">Transformer architectures · Translation quality · Evaluation metrics · Post-editing</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Large Language Models and Multilingual AI</div>
+            <div class="lp-mod-topics">LLM architectures · Cross-lingual capabilities · Multilingual prompting · Language generation</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Localisation and Multilingual Communication</div>
+            <div class="lp-mod-topics">Localisation workflows · Cultural adaptation · Accessibility · Global communication</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M6</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Ethics, Bias, and the Future of Language Technologies</div>
+            <div class="lp-mod-topics">Linguistic bias · Low-resource languages · Inclusion &amp; accessibility · Future directions</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items" style="flex-direction:column;gap:6px;width:100%;">
+        <div style="display:flex;gap:16px;margin-bottom:4px;">
+          <span style="display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:9px;color:var(--teal-light);letter-spacing:0.1em;text-transform:uppercase;">
+            <span style="display:inline-block;width:12px;height:2px;background:var(--teal-light);border-radius:2px;"></span>Theoretical
+          </span>
+          <span style="display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:9px;color:var(--soft-pink);letter-spacing:0.1em;text-transform:uppercase;">
+            <span style="display:inline-block;width:12px;height:2px;background:var(--soft-pink);border-radius:2px;"></span>Practical · Trados Studio
+          </span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="lp-assess-tag" style="border-left:2px solid var(--teal-light);padding-left:10px;">Analysis of NLP and MT systems</span>
+          <span class="lp-assess-tag" style="border-left:2px solid var(--teal-light);padding-left:10px;">Multilingual AI evaluation report</span>
+          <span class="lp-assess-tag" style="border-left:2px solid var(--soft-pink);padding-left:10px;">CAT tool workflows in Trados Studio</span>
+          <span class="lp-assess-tag" style="border-left:2px solid var(--soft-pink);padding-left:10px;">Post-editing &amp; localisation projects in Trados Studio</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">07 / 07</div>
+  </div>
+</div>
+
+</body>
+</html>
+.Value -replace '6', '8' </div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L2</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for Secondary Education</strong> · Ages 12–15</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L3</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for High School Education</strong> · Ages 16–18</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L4</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for Higher Education</strong> · Undergraduate &amp; Postgraduate</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L5</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Academic Writing &amp; Research Communication</strong> · Researchers &amp; Academics</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L6</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Translation Technologies &amp; Multilingual AI</strong> · Language Professionals</div>
+      </div>
+    </div>
+
+    <div class="cover-tag-row">
+      <span class="ctag pink">Critical Thinking</span>
+      <span class="ctag teal">AI Ethics</span>
+      <span class="ctag pink">Research Skills</span>
+      <span class="ctag teal">Multilingual AI</span>
+      <span class="ctag pink">Academic Integrity</span>
+      <span class="ctag teal">Prompt Engineering</span>
+    </div>
+
+    <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(102,208,188,0.25);border-left:3px solid var(--teal-light);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:15px;flex-shrink:0;margin-top:1px;">💡</div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-light);margin-bottom:5px;">Flexible Enrolment</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;">Each level is available as a <strong style="color:#fff;font-weight:500;">standalone course</strong> and can be opted for independently. Participants may enrol in whichever level best matches their context and needs. All courses are delivered <strong style="color:#fff;font-weight:500;">online</strong>.</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,136,186,0.25);border-left:3px solid var(--soft-pink);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:15px;flex-shrink:0;margin-top:1px;">🎉</div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--soft-pink);margin-bottom:5px;">Certificate of Completion</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;">A <strong style="color:#fff;font-weight:500;">certificate of completion</strong> is awarded at the end of every level, recognising the participant's achievement upon successfully completing the course requirements.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="brand">Wordetica
+      <span>Human-Centered AI Literacy Training Series</span>
+    </div>
+    <div class="pgnum">01 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 2 – LEVEL 1
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #FF3E9B 0%, #c42070 100%);">
+    <div class="lp-eyebrow">Level 1 · Primary Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for Primary Education</div>
+    <div class="lp-audience">Target audience: Learners  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human-Centered AI Literacy Training Series · Wordetica</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hot-pink: #FF3E9B;
+    --soft-pink: #FF88BA;
+    --teal-dark: #3A8B95;
+    --teal-light: #66D0BC;
+    --ink: #0f1117;
+    --off-white: #faf8f5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #e8e6e2;
+    color: var(--ink);
+  }
+
+  /* ── PAGE SHELL ── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 32px;
+    background: var(--off-white);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+  }
+
+  @media screen {
+    body { padding: 32px 0 64px; }
+    .page { box-shadow: 0 8px 48px rgba(0,0,0,0.18); }
+  }
+
+  /* ── SHARED TYPE ── */
+  .mono {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .serif { font-family: 'Playfair Display', serif; }
+
+  /* ────────────────────────────────
+     COVER PAGE
+  ──────────────────────────────── */
+  .cover {
+    background: var(--ink);
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 100% 0%, rgba(255,62,155,0.28) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 50% at 0% 100%, rgba(102,208,188,0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cover-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 56px 52px 40px;
+    z-index: 1;
+    position: relative;
+  }
+
+  .cover-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 36px;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1.0;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .cover-title em { font-style: italic; color: var(--hot-pink); }
+
+  .cover-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--soft-pink);
+    margin-bottom: 32px;
+  }
+
+  .cover-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    max-width: 400px;
+    margin-bottom: 44px;
+  }
+
+  .cover-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .cover-pillar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .cp-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--hot-pink);
+    letter-spacing: 0.1em;
+    width: 28px;
+    flex-shrink: 0;
+  }
+
+  .cp-bar {
+    height: 1px;
+    width: 28px;
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+
+  .cp-name {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+  }
+
+  .cp-name strong {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .cover-tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ctag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+  }
+  .ctag.pink { background: rgba(255,62,155,0.14); color: var(--soft-pink); border: 1px solid rgba(255,62,155,0.3); }
+  .ctag.teal { background: rgba(102,208,188,0.1); color: var(--teal-light); border: 1px solid rgba(102,208,188,0.25); }
+
+  .cover-footer {
+    z-index: 1;
+    position: relative;
+    padding: 22px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .cover-footer .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .cover-footer .brand span {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+  .cover-footer .pgnum {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ────────────────────────────────
+     LEVEL PAGES
+  ──────────────────────────────── */
+  .level-page {
+    min-height: 297mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header stripe */
+  .lp-header {
+    padding: 36px 48px 30px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .lp-header::after {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    opacity: 0.12;
+    background: #fff;
+  }
+
+  /* per-level accent colours applied inline */
+  .lp-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+  }
+
+  .lp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 6px;
+    max-width: 480px;
+  }
+
+  .lp-audience {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lp-audience::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: rgba(255,255,255,0.4);
+  }
+
+  /* Body area */
+  .lp-body {
+    flex: 1;
+    padding: 28px 48px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 28px;
+  }
+
+  /* Vision block – full width */
+  .lp-vision {
+    grid-column: 1 / -1;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    border-left: 3px solid var(--hot-pink);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .lp-vision-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--hot-pink);
+    white-space: nowrap;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .lp-vision-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* Objectives */
+  .lp-objectives {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .lp-block-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .lp-obj-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .lp-obj-list li {
+    font-size: 12.5px;
+    color: #444;
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .lp-obj-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    top: 2px;
+    color: var(--soft-pink);
+  }
+
+  /* Modules */
+  .lp-modules {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .lp-module-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .lp-module {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .lp-mod-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    width: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .lp-mod-content {}
+
+  .lp-mod-name {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 3px;
+  }
+
+  .lp-mod-topics {
+    font-size: 11px;
+    color: #777;
+    line-height: 1.5;
+  }
+
+  /* Assessment strip */
+  .lp-assessment {
+    grid-column: 1 / -1;
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .lp-assess-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .lp-assess-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lp-assess-tag {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 5px 12px;
+  }
+
+  /* Page footer */
+  .lp-footer {
+    padding: 14px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e8e6e2;
+    flex-shrink: 0;
+  }
+
+  .lp-footer .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .lp-footer .brand span {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-left: 8px;
+  }
+  .lp-footer .pgnum {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #bbb;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ────────────────────────────────
+     PAGE 1 – COVER
+──────────────────────────────── -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Wordetica &nbsp;·&nbsp; <em style="font-style:italic;letter-spacing:0.08em;">Language-Driven</em></div>
+    <div class="cover-title"><em>Human-Centered</em><br>AI Training</div>
+    <div class="cover-subtitle">Series</div>
+    <p class="cover-desc">A progressive, six-level series equipping learners from primary school to professional research with the knowledge, critical thinking, and ethical awareness to understand, evaluate, and use artificial intelligence responsibly.</p>
+
+    <div class="cover-pillars">
+      <div class="cover-pillar">
+        <span class="cp-num">L1</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for Primary Education</strong> · Ages 6–11</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L2</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for Secondary Education</strong> · Ages 12–15</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L3</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for High School Education</strong> · Ages 16–18</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L4</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Foundations for Higher Education</strong> · Undergraduate &amp; Postgraduate</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L5</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Academic Writing &amp; Research Communication</strong> · Researchers &amp; Academics</div>
+      </div>
+      <div class="cover-pillar">
+        <span class="cp-num">L6</span>
+        <div class="cp-bar"></div>
+        <div class="cp-name"><strong>Translation Technologies &amp; Multilingual AI</strong> · Language Professionals</div>
+      </div>
+    </div>
+
+    <div class="cover-tag-row">
+      <span class="ctag pink">Critical Thinking</span>
+      <span class="ctag teal">AI Ethics</span>
+      <span class="ctag pink">Research Skills</span>
+      <span class="ctag teal">Multilingual AI</span>
+      <span class="ctag pink">Academic Integrity</span>
+      <span class="ctag teal">Prompt Engineering</span>
+    </div>
+
+    <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(102,208,188,0.25);border-left:3px solid var(--teal-light);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:15px;flex-shrink:0;margin-top:1px;">💡</div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal-light);margin-bottom:5px;">Flexible Enrolment</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;">Each level is available as a <strong style="color:#fff;font-weight:500;">standalone course</strong> and can be opted for independently. Participants may enrol in whichever level best matches their context and needs. All courses are delivered <strong style="color:#fff;font-weight:500;">online</strong>.</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,136,186,0.25);border-left:3px solid var(--soft-pink);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-size:15px;flex-shrink:0;margin-top:1px;">🎉</div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--soft-pink);margin-bottom:5px;">Certificate of Completion</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;">A <strong style="color:#fff;font-weight:500;">certificate of completion</strong> is awarded at the end of every level, recognising the participant's achievement upon successfully completing the course requirements.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="brand">Wordetica
+      <span>Human-Centered AI Literacy Training Series</span>
+    </div>
+    <div class="pgnum">01 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 2 – LEVEL 1
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #FF3E9B 0%, #c42070 100%);">
+    <div class="lp-eyebrow">Level 1 · Primary Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for Primary Education</div>
+    <div class="lp-audience">Target audience: Learners aged 6–11</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label">Programme Vision</div>
+      <div class="lp-vision-text">"Helping young learners understand what AI is, where it appears in their daily lives, and how to engage with it safely, creatively, and responsibly."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand what AI is in simple, accessible terms</li>
+        <li>Recognise AI systems encountered in everyday life</li>
+        <li>Use AI tools safely and responsibly</li>
+        <li>Develop foundational digital citizenship skills</li>
+        <li>Explore creativity and learning through AI-supported activities</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">What Is AI?</div>
+            <div class="lp-mod-topics">Machines that learn · AI vs humans · What AI can and cannot do</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI in Everyday Life</div>
+            <div class="lp-mod-topics">Smart assistants · Recommendation systems · Games &amp; entertainment</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Safe and Responsible AI Use</div>
+            <div class="lp-mod-topics">Privacy &amp; personal information · Safe online behaviour · Trustworthy information</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Creativity and Learning with AI</div>
+            <div class="lp-mod-topics">Storytelling · Drawing &amp; image generation · Brainstorming · Learning support</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Digital Citizenship</div>
+            <div class="lp-mod-topics">Respectful communication · Digital footprints · Healthy technology habits</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI-assisted storytelling exercises</span>
+        <span class="lp-assess-tag">Creative drawing &amp; image generation tasks</span>
+        <span class="lp-assess-tag">Digital safety role-play activities</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">02 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 3 – LEVEL 2
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #FF88BA 0%, #e05090 100%);">
+    <div class="lp-eyebrow">Level 2 · Secondary Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for Secondary Education</div>
+    <div class="lp-audience">Target audience: Learners aged 12–15</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--soft-pink)">Programme Vision</div>
+      <div class="lp-vision-text">"Building critical thinking, media literacy, and ethical awareness so young people can navigate an AI-saturated information environment with confidence and discernment."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--soft-pink);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand how AI systems work at a foundational level</li>
+        <li>Develop critical thinking about AI-generated content</li>
+        <li>Identify misinformation, deepfakes, and manipulation</li>
+        <li>Apply ethical principles when using AI</li>
+        <li>Begin communicating effectively with AI systems</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--soft-pink);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Understanding AI Systems</div>
+            <div class="lp-mod-topics">How AI learns · Training &amp; prediction · Algorithms · Limitations</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Critical Thinking and AI</div>
+            <div class="lp-mod-topics">Evaluating AI information · Fact-checking · Detecting hallucinations · Human oversight</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI and Media Literacy</div>
+            <div class="lp-mod-topics">Deepfakes · Synthetic media · Misinformation · Social media algorithms</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Ethics, Fairness, and Bias</div>
+            <div class="lp-mod-topics">Sources of bias · Fairness in AI · Representation &amp; inclusion · Ethical decision-making</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Introduction to Prompting</div>
+            <div class="lp-mod-topics">Asking effective questions · Clear instructions · Evaluating &amp; improving AI responses</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">Deepfake and misinformation detection exercises</span>
+        <span class="lp-assess-tag">Bias audit of AI-generated content</span>
+        <span class="lp-assess-tag">Hands-on prompt design and evaluation tasks</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">03 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 4 – LEVEL 3
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #3A8B95 0%, #236570 100%);">
+    <div class="lp-eyebrow">Level 3 · High School Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for High School Education</div>
+    <div class="lp-audience">Target audience: Learners aged 16–18</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--teal-dark)">Programme Vision</div>
+      <div class="lp-vision-text">"Preparing students to use generative AI as a genuine learning tool - conducting better research, thinking about societal impact, and making informed choices about their futures in an AI-transformed world."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand generative AI technologies and how they work</li>
+        <li>Apply AI effectively in study and learning contexts</li>
+        <li>Conduct AI-supported academic research</li>
+        <li>Analyse the societal impacts of AI systems</li>
+        <li>Explore future educational and career pathways in an AI-enabled world</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Generative AI and Large Language Models</div>
+            <div class="lp-mod-topics">How generative AI works · LLMs · Strengths &amp; limitations · Emerging technologies</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI-Assisted Learning</div>
+            <div class="lp-mod-topics">Study support · Personalised learning · Note-taking &amp; summarisation · Productivity</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Research Skills in the Age of AI</div>
+            <div class="lp-mod-topics">Information literacy · Source evaluation · Academic research · AI-assisted inquiry</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI Ethics and Governance</div>
+            <div class="lp-mod-topics">Regulation &amp; policy · Intellectual property · Data protection · Responsible innovation</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Future Careers and AI</div>
+            <div class="lp-mod-topics">Changing job markets · Human-AI collaboration · Emerging professions · Lifelong learning</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI-supported research project</span>
+        <span class="lp-assess-tag">Ethics and governance case study</span>
+        <span class="lp-assess-tag">Career futures exploration portfolio</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">04 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 5 – LEVEL 4
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #66D0BC 0%, #3aaa94 100%);">
+    <div class="lp-eyebrow">Level 4 · Higher Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for Higher Education</div>
+    <div class="lp-audience">Target audience: Undergraduate &amp; postgraduate students, all disciplines</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--teal-light)">Programme Vision</div>
+      <div class="lp-vision-text">"Equipping university students across all disciplines with the critical AI literacy, responsible use practices, and prompt engineering skills needed to engage with AI as thoughtful, academically grounded scholars."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: #2a9980;">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Demonstrate AI literacy and critical evaluation skills</li>
+        <li>Use AI effectively for learning and academic research</li>
+        <li>Apply prompt engineering techniques in scholarly contexts</li>
+        <li>Understand and uphold academic integrity requirements</li>
+        <li>Make informed, ethically grounded decisions regarding AI use</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: #2a9980;">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI Literacy and Critical Evaluation</div>
+            <div class="lp-mod-topics">Understanding AI systems · Evaluating outputs · Reliability · Human oversight</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Prompt Engineering</div>
+            <div class="lp-mod-topics">Design principles · Iterative prompting · Role prompting · Research prompting</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Academic Integrity and AI</div>
+            <div class="lp-mod-topics">Responsible AI use · Transparency &amp; disclosure · Institutional policies · Ethics</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI for Learning and Productivity</div>
+            <div class="lp-mod-topics">Knowledge management · Study support · Project planning · Collaboration tools</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Responsible and Ethical AI Use</div>
+            <div class="lp-mod-topics">Bias &amp; fairness · Privacy &amp; security · Sustainability · Human-centered design</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI literacy and critical evaluation portfolio</span>
+        <span class="lp-assess-tag">Discipline-specific prompt engineering project</span>
+        <span class="lp-assess-tag">Ethical reflection and disclosure report</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">05 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 6 – LEVEL 5
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #0f1117 0%, #1e2535 100%); border-bottom: 3px solid var(--hot-pink);">
+    <div class="lp-eyebrow">Level 5 · Academic Research Specialisation</div>
+    <div class="lp-title">Human-Centered AI: Academic Writing<br>and Research Communication</div>
+    <div class="lp-audience">Target audience: Advanced undergraduates, postgraduates, researchers &amp; academics</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label">Programme Vision</div>
+      <div class="lp-vision-text">"Enabling researchers and academics to integrate AI into rigorous scholarly workflows - from literature discovery to publication ethics - while maintaining the methodological integrity and intellectual ownership their work demands."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Integrate AI into academic writing workflows responsibly</li>
+        <li>Conduct systematic literature exploration with AI support</li>
+        <li>Improve research communication practices for diverse audiences</li>
+        <li>Critically evaluate AI-assisted outputs at every research stage</li>
+        <li>Maintain academic integrity and ethical disclosure standards</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI-Assisted Academic Writing</div>
+            <div class="lp-mod-topics">Idea development · Outlining · Drafting support · Revision strategies</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Literature Reviews and Knowledge Discovery</div>
+            <div class="lp-mod-topics">Search strategies · AI-powered research tools · Evidence synthesis · Gap identification</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI-Supported Research Workflows</div>
+            <div class="lp-mod-topics">Research planning · Data organisation · Project management · Knowledge management</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Scholarly Communication</div>
+            <div class="lp-mod-topics">Academic style · Audience adaptation · Research dissemination · Public communication</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Publication Ethics and Responsible AI</div>
+            <div class="lp-mod-topics">Authorship · Transparency · Citation practices · Ethical disclosure</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI-assisted systematic literature review</span>
+        <span class="lp-assess-tag">Research communication and dissemination portfolio</span>
+        <span class="lp-assess-tag">Authorship and AI use statement</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">06 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 7 – LEVEL 6
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #3A8B95 0%, #FF3E9B 100%);">
+    <div class="lp-eyebrow">Level 6 · Language Technology Specialisation</div>
+    <div class="lp-title">Human-Centered AI: Translation Technologies<br>and Multilingual AI</div>
+    <div class="lp-audience">Target audience: Students &amp; professionals in translation, linguistics, localization &amp; language fields</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--teal-dark)">Programme Vision</div>
+      <div class="lp-vision-text">"Equipping language professionals and researchers to critically understand, evaluate, and work with the full spectrum of translation and multilingual AI technologies - from NLP foundations to ethical implications for low-resource languages."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand the evolution of language technologies and NLP</li>
+        <li>Analyse machine translation systems across their historical development</li>
+        <li>Evaluate multilingual AI tools critically and practically</li>
+        <li>Apply localisation principles in professional contexts</li>
+        <li>Critically assess linguistic and cultural implications of AI in language work</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Foundations of Natural Language Processing</div>
+            <div class="lp-mod-topics">Language &amp; computation · Linguistic data · Core NLP tasks · Language resources</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">History of Machine Translation</div>
+            <div class="lp-mod-topics">Rule-based systems · Statistical MT · Neural MT · Contemporary developments</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Neural Machine Translation</div>
+            <div class="lp-mod-topics">Transformer architectures · Translation quality · Evaluation metrics · Post-editing</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Large Language Models and Multilingual AI</div>
+            <div class="lp-mod-topics">LLM architectures · Cross-lingual capabilities · Multilingual prompting · Language generation</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Localisation and Multilingual Communication</div>
+            <div class="lp-mod-topics">Localisation workflows · Cultural adaptation · Accessibility · Global communication</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M6</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Ethics, Bias, and the Future of Language Technologies</div>
+            <div class="lp-mod-topics">Linguistic bias · Low-resource languages · Inclusion &amp; accessibility · Future directions</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items" style="flex-direction:column;gap:6px;width:100%;">
+        <div style="display:flex;gap:16px;margin-bottom:4px;">
+          <span style="display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:9px;color:var(--teal-light);letter-spacing:0.1em;text-transform:uppercase;">
+            <span style="display:inline-block;width:12px;height:2px;background:var(--teal-light);border-radius:2px;"></span>Theoretical
+          </span>
+          <span style="display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:9px;color:var(--soft-pink);letter-spacing:0.1em;text-transform:uppercase;">
+            <span style="display:inline-block;width:12px;height:2px;background:var(--soft-pink);border-radius:2px;"></span>Practical · Trados Studio
+          </span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="lp-assess-tag" style="border-left:2px solid var(--teal-light);padding-left:10px;">Analysis of NLP and MT systems</span>
+          <span class="lp-assess-tag" style="border-left:2px solid var(--teal-light);padding-left:10px;">Multilingual AI evaluation report</span>
+          <span class="lp-assess-tag" style="border-left:2px solid var(--soft-pink);padding-left:10px;">CAT tool workflows in Trados Studio</span>
+          <span class="lp-assess-tag" style="border-left:2px solid var(--soft-pink);padding-left:10px;">Post-editing &amp; localisation projects in Trados Studio</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">07 / 07</div>
+  </div>
+</div>
+
+</body>
+</html>
+.Value -replace '6', '8' </div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label">Programme Vision</div>
+      <div class="lp-vision-text">"Helping young learners understand what AI is, where it appears in their daily lives, and how to engage with it safely, creatively, and responsibly."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand what AI is in simple, accessible terms</li>
+        <li>Recognise AI systems encountered in everyday life</li>
+        <li>Use AI tools safely and responsibly</li>
+        <li>Develop foundational digital citizenship skills</li>
+        <li>Explore creativity and learning through AI-supported activities</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">What Is AI?</div>
+            <div class="lp-mod-topics">Machines that learn · AI vs humans · What AI can and cannot do</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI in Everyday Life</div>
+            <div class="lp-mod-topics">Smart assistants · Recommendation systems · Games &amp; entertainment</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Safe and Responsible AI Use</div>
+            <div class="lp-mod-topics">Privacy &amp; personal information · Safe online behaviour · Trustworthy information</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Creativity and Learning with AI</div>
+            <div class="lp-mod-topics">Storytelling · Drawing &amp; image generation · Brainstorming · Learning support</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Digital Citizenship</div>
+            <div class="lp-mod-topics">Respectful communication · Digital footprints · Healthy technology habits</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI-assisted storytelling exercises</span>
+        <span class="lp-assess-tag">Creative drawing &amp; image generation tasks</span>
+        <span class="lp-assess-tag">Digital safety role-play activities</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">02 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 3 – LEVEL 2
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #FF88BA 0%, #e05090 100%);">
+    <div class="lp-eyebrow">Level 2 · Secondary Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for Secondary Education</div>
+    <div class="lp-audience">Target audience: Learners aged 12–15</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--soft-pink)">Programme Vision</div>
+      <div class="lp-vision-text">"Building critical thinking, media literacy, and ethical awareness so young people can navigate an AI-saturated information environment with confidence and discernment."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--soft-pink);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand how AI systems work at a foundational level</li>
+        <li>Develop critical thinking about AI-generated content</li>
+        <li>Identify misinformation, deepfakes, and manipulation</li>
+        <li>Apply ethical principles when using AI</li>
+        <li>Begin communicating effectively with AI systems</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--soft-pink);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Understanding AI Systems</div>
+            <div class="lp-mod-topics">How AI learns · Training &amp; prediction · Algorithms · Limitations</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Critical Thinking and AI</div>
+            <div class="lp-mod-topics">Evaluating AI information · Fact-checking · Detecting hallucinations · Human oversight</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI and Media Literacy</div>
+            <div class="lp-mod-topics">Deepfakes · Synthetic media · Misinformation · Social media algorithms</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Ethics, Fairness, and Bias</div>
+            <div class="lp-mod-topics">Sources of bias · Fairness in AI · Representation &amp; inclusion · Ethical decision-making</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--soft-pink);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Introduction to Prompting</div>
+            <div class="lp-mod-topics">Asking effective questions · Clear instructions · Evaluating &amp; improving AI responses</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">Deepfake and misinformation detection exercises</span>
+        <span class="lp-assess-tag">Bias audit of AI-generated content</span>
+        <span class="lp-assess-tag">Hands-on prompt design and evaluation tasks</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">03 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 4 – LEVEL 3
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #3A8B95 0%, #236570 100%);">
+    <div class="lp-eyebrow">Level 3 · High School Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for High School Education</div>
+    <div class="lp-audience">Target audience: Learners aged 16–18</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--teal-dark)">Programme Vision</div>
+      <div class="lp-vision-text">"Preparing students to use generative AI as a genuine learning tool - conducting better research, thinking about societal impact, and making informed choices about their futures in an AI-transformed world."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand generative AI technologies and how they work</li>
+        <li>Apply AI effectively in study and learning contexts</li>
+        <li>Conduct AI-supported academic research</li>
+        <li>Analyse the societal impacts of AI systems</li>
+        <li>Explore future educational and career pathways in an AI-enabled world</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Generative AI and Large Language Models</div>
+            <div class="lp-mod-topics">How generative AI works · LLMs · Strengths &amp; limitations · Emerging technologies</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI-Assisted Learning</div>
+            <div class="lp-mod-topics">Study support · Personalised learning · Note-taking &amp; summarisation · Productivity</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Research Skills in the Age of AI</div>
+            <div class="lp-mod-topics">Information literacy · Source evaluation · Academic research · AI-assisted inquiry</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI Ethics and Governance</div>
+            <div class="lp-mod-topics">Regulation &amp; policy · Intellectual property · Data protection · Responsible innovation</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Future Careers and AI</div>
+            <div class="lp-mod-topics">Changing job markets · Human-AI collaboration · Emerging professions · Lifelong learning</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI-supported research project</span>
+        <span class="lp-assess-tag">Ethics and governance case study</span>
+        <span class="lp-assess-tag">Career futures exploration portfolio</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">04 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 5 – LEVEL 4
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #66D0BC 0%, #3aaa94 100%);">
+    <div class="lp-eyebrow">Level 4 · Higher Education</div>
+    <div class="lp-title">Human-Centered AI:<br>Foundations for Higher Education</div>
+    <div class="lp-audience">Target audience: Undergraduate &amp; postgraduate students, all disciplines</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--teal-light)">Programme Vision</div>
+      <div class="lp-vision-text">"Equipping university students across all disciplines with the critical AI literacy, responsible use practices, and prompt engineering skills needed to engage with AI as thoughtful, academically grounded scholars."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: #2a9980;">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Demonstrate AI literacy and critical evaluation skills</li>
+        <li>Use AI effectively for learning and academic research</li>
+        <li>Apply prompt engineering techniques in scholarly contexts</li>
+        <li>Understand and uphold academic integrity requirements</li>
+        <li>Make informed, ethically grounded decisions regarding AI use</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: #2a9980;">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI Literacy and Critical Evaluation</div>
+            <div class="lp-mod-topics">Understanding AI systems · Evaluating outputs · Reliability · Human oversight</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Prompt Engineering</div>
+            <div class="lp-mod-topics">Design principles · Iterative prompting · Role prompting · Research prompting</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Academic Integrity and AI</div>
+            <div class="lp-mod-topics">Responsible AI use · Transparency &amp; disclosure · Institutional policies · Ethics</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI for Learning and Productivity</div>
+            <div class="lp-mod-topics">Knowledge management · Study support · Project planning · Collaboration tools</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:#2a9980;">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Responsible and Ethical AI Use</div>
+            <div class="lp-mod-topics">Bias &amp; fairness · Privacy &amp; security · Sustainability · Human-centered design</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI literacy and critical evaluation portfolio</span>
+        <span class="lp-assess-tag">Discipline-specific prompt engineering project</span>
+        <span class="lp-assess-tag">Ethical reflection and disclosure report</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">05 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 6 – LEVEL 5
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #0f1117 0%, #1e2535 100%); border-bottom: 3px solid var(--hot-pink);">
+    <div class="lp-eyebrow">Level 5 · Academic Research Specialisation</div>
+    <div class="lp-title">Human-Centered AI: Academic Writing<br>and Research Communication</div>
+    <div class="lp-audience">Target audience: Advanced undergraduates, postgraduates, researchers &amp; academics</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label">Programme Vision</div>
+      <div class="lp-vision-text">"Enabling researchers and academics to integrate AI into rigorous scholarly workflows - from literature discovery to publication ethics - while maintaining the methodological integrity and intellectual ownership their work demands."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Integrate AI into academic writing workflows responsibly</li>
+        <li>Conduct systematic literature exploration with AI support</li>
+        <li>Improve research communication practices for diverse audiences</li>
+        <li>Critically evaluate AI-assisted outputs at every research stage</li>
+        <li>Maintain academic integrity and ethical disclosure standards</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--hot-pink);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI-Assisted Academic Writing</div>
+            <div class="lp-mod-topics">Idea development · Outlining · Drafting support · Revision strategies</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Literature Reviews and Knowledge Discovery</div>
+            <div class="lp-mod-topics">Search strategies · AI-powered research tools · Evidence synthesis · Gap identification</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">AI-Supported Research Workflows</div>
+            <div class="lp-mod-topics">Research planning · Data organisation · Project management · Knowledge management</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Scholarly Communication</div>
+            <div class="lp-mod-topics">Academic style · Audience adaptation · Research dissemination · Public communication</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--hot-pink);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Publication Ethics and Responsible AI</div>
+            <div class="lp-mod-topics">Authorship · Transparency · Citation practices · Ethical disclosure</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items">
+        <span class="lp-assess-tag">AI-assisted systematic literature review</span>
+        <span class="lp-assess-tag">Research communication and dissemination portfolio</span>
+        <span class="lp-assess-tag">Authorship and AI use statement</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">06 / 07</div>
+  </div>
+</div>
+
+
+<!-- ────────────────────────────────
+     PAGE 7 – LEVEL 6
+──────────────────────────────── -->
+<div class="page level-page">
+  <div class="lp-header" style="background: linear-gradient(135deg, #3A8B95 0%, #FF3E9B 100%);">
+    <div class="lp-eyebrow">Level 6 · Language Technology Specialisation</div>
+    <div class="lp-title">Human-Centered AI: Translation Technologies<br>and Multilingual AI</div>
+    <div class="lp-audience">Target audience: Students &amp; professionals in translation, linguistics, localization &amp; language fields</div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;color:rgba(255,255,255,0.9);">✓</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Standalone course available</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,136,186,0.18);border-radius:100px;padding:4px 12px;">
+        <span style="font-size:9px;">🎉</span>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.85);">Certificate of completion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-body">
+
+    <div class="lp-vision">
+      <div class="lp-vision-label" style="color:var(--teal-dark)">Programme Vision</div>
+      <div class="lp-vision-text">"Equipping language professionals and researchers to critically understand, evaluate, and work with the full spectrum of translation and multilingual AI technologies - from NLP foundations to ethical implications for low-resource languages."</div>
+    </div>
+
+    <div class="lp-objectives">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Learning Objectives</div>
+      <ul class="lp-obj-list">
+        <li>Understand the evolution of language technologies and NLP</li>
+        <li>Analyse machine translation systems across their historical development</li>
+        <li>Evaluate multilingual AI tools critically and practically</li>
+        <li>Apply localisation principles in professional contexts</li>
+        <li>Critically assess linguistic and cultural implications of AI in language work</li>
+      </ul>
+    </div>
+
+    <div class="lp-modules">
+      <div class="lp-block-title" style="color: var(--teal-dark);">Modules</div>
+      <ul class="lp-module-list">
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M1</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Foundations of Natural Language Processing</div>
+            <div class="lp-mod-topics">Language &amp; computation · Linguistic data · Core NLP tasks · Language resources</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M2</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">History of Machine Translation</div>
+            <div class="lp-mod-topics">Rule-based systems · Statistical MT · Neural MT · Contemporary developments</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M3</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Neural Machine Translation</div>
+            <div class="lp-mod-topics">Transformer architectures · Translation quality · Evaluation metrics · Post-editing</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M4</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Large Language Models and Multilingual AI</div>
+            <div class="lp-mod-topics">LLM architectures · Cross-lingual capabilities · Multilingual prompting · Language generation</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M5</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Localisation and Multilingual Communication</div>
+            <div class="lp-mod-topics">Localisation workflows · Cultural adaptation · Accessibility · Global communication</div>
+          </div>
+        </li>
+        <li class="lp-module">
+          <div class="lp-mod-num" style="color:var(--teal-dark);">M6</div>
+          <div class="lp-mod-content">
+            <div class="lp-mod-name">Ethics, Bias, and the Future of Language Technologies</div>
+            <div class="lp-mod-topics">Linguistic bias · Low-resource languages · Inclusion &amp; accessibility · Future directions</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lp-assessment">
+      <div class="lp-assess-label">Applications</div>
+      <div class="lp-assess-items" style="flex-direction:column;gap:6px;width:100%;">
+        <div style="display:flex;gap:16px;margin-bottom:4px;">
+          <span style="display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:9px;color:var(--teal-light);letter-spacing:0.1em;text-transform:uppercase;">
+            <span style="display:inline-block;width:12px;height:2px;background:var(--teal-light);border-radius:2px;"></span>Theoretical
+          </span>
+          <span style="display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:9px;color:var(--soft-pink);letter-spacing:0.1em;text-transform:uppercase;">
+            <span style="display:inline-block;width:12px;height:2px;background:var(--soft-pink);border-radius:2px;"></span>Practical · Trados Studio
+          </span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="lp-assess-tag" style="border-left:2px solid var(--teal-light);padding-left:10px;">Analysis of NLP and MT systems</span>
+          <span class="lp-assess-tag" style="border-left:2px solid var(--teal-light);padding-left:10px;">Multilingual AI evaluation report</span>
+          <span class="lp-assess-tag" style="border-left:2px solid var(--soft-pink);padding-left:10px;">CAT tool workflows in Trados Studio</span>
+          <span class="lp-assess-tag" style="border-left:2px solid var(--soft-pink);padding-left:10px;">Post-editing &amp; localisation projects in Trados Studio</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lp-footer">
+    <div class="brand">Wordetica <span>Human-Centered AI Literacy Training Series</span></div>
+    <div class="pgnum">07 / 07</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+
+@mixin admin-page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: grid;
+  gap: $space-6;
+}
+
+@mixin admin-page-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: $space-4;
+  flex-wrap: wrap;
+  width: 100%;
+
+  h1 { margin: 0; }
+  p { color: $color-text-muted; margin: 0; }
+}
+
+@mixin admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-3;
+  width: 100%;
+  padding: $space-4;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+
+  .wo-select {
+    min-width: min(100%, 280px);
+    flex: 1 1 220px;
+  }
+}

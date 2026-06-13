@@ -1,0 +1,392 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+
+// ── Back link ────────────────────────────────────────────────────────────────
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  margin-bottom: $space-4;
+  color: $color-text-muted;
+  font-weight: 500;
+  font-size: $fs-sm;
+
+  &:hover { color: $color-primary-dark; }
+}
+
+// ── Page header ──────────────────────────────────────────────────────────────
+.header {
+  display: grid;
+  gap: $space-3;
+  max-width: 760px;
+  margin: 0 auto $space-7;
+  justify-items: center;
+  text-align: center;
+}
+
+.service-icon {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  background: $gradient-brand;
+  color: $color-text-inverse;
+  border-radius: $radius-lg;
+  font-size: $fs-2xl;
+  box-shadow: $glow-mint;
+}
+
+.positioning {
+  font-size: $fs-md;
+  color: $color-text-muted;
+}
+
+.langs {
+  display: flex;
+  gap: $space-2;
+  flex-wrap: wrap;
+}
+
+// ── Overview block ────────────────────────────────────────────────────────────
+.overview {
+  max-width: 960px;
+  margin: 0 auto $space-8;
+  display: grid;
+  gap: $space-5;
+  text-align: center;
+
+  &__desc {
+    font-size: $fs-md;
+    color: $color-text-muted;
+    line-height: $lh-loose;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  &__info {
+    display: grid;
+    gap: $space-4;
+    text-align: left;
+
+    @include breakpoint(md) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+.info-card {
+  @include card;
+  padding: $space-5;
+  border-left-width: 3px;
+
+  p { color: $color-text-muted; font-size: $fs-sm; line-height: $lh-base; margin: 0; }
+  strong { color: $color-text; }
+
+  &__label {
+    font-size: $fs-xs;
+    font-weight: 700;
+    letter-spacing: $tracking-wider;
+    text-transform: uppercase;
+    margin-bottom: $space-2 !important;
+  }
+
+  &--teal {
+    border-left-color: $color-mint;
+    background: linear-gradient(135deg, rgba($color-mint, 0.06) 0%, $color-surface 60%);
+
+    .info-card__label { color: $color-primary-dark; }
+  }
+
+  &--pink {
+    border-left-color: $color-pink-soft;
+    background: linear-gradient(135deg, rgba($color-pink-soft, 0.06) 0%, $color-surface 60%);
+
+    .info-card__label { color: $color-accent-dark; }
+  }
+}
+
+// ── Levels list ──────────────────────────────────────────────────────────────
+.levels {
+  display: grid;
+  gap: $space-6;
+}
+
+// ── Level card ────────────────────────────────────────────────────────────────
+.level-card {
+  @include card;
+  overflow: hidden;
+
+  // ── Accent head variants ─────────────────────────────────────────────────
+  &.level--pink     .level-card__head { background: $gradient-accent; }
+  &.level--soft-pink .level-card__head { background: linear-gradient(135deg, $color-pink-soft 0%, $color-accent-dark 100%); }
+  &.level--teal     .level-card__head { background: $gradient-brand; }
+  &.level--mint     .level-card__head { background: linear-gradient(135deg, $color-mint 0%, $color-teal 100%); }
+  &.level--brand    .level-card__head { background: linear-gradient(135deg, $color-primary-dark 0%, $color-teal 100%); }
+  &.level--cosmic   .level-card__head { background: $gradient-cosmic; }
+
+  // ── Head ──────────────────────────────────────────────────────────────────
+  &__head {
+    padding: $space-5 $space-6;
+    display: grid;
+    gap: $space-4;
+    text-align: center;
+  }
+
+  // ── Vision ────────────────────────────────────────────────────────────────
+  &__vision {
+    padding: $space-4 $space-4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-2;
+    border-bottom: 1px solid $color-border;
+    text-align: center;
+
+    @include breakpoint(md) {
+      padding: $space-4 $space-6;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: $space-4;
+      text-align: left;
+    }
+  }
+
+  // ── Body (objectives + modules) ───────────────────────────────────────────
+  &__body {
+    padding: $space-5 $space-6;
+    display: grid;
+    gap: $space-5;
+
+    @include breakpoint(md) {
+      grid-template-columns: 1fr 1fr;
+      gap: $space-6;
+    }
+  }
+
+  // ── Applications strip ────────────────────────────────────────────────────
+  &__apps {
+    padding: $space-4 $space-6;
+    background: $color-surface-alt;
+    border-top: 1px solid $color-border;
+    display: flex;
+    align-items: flex-start;
+    gap: $space-4;
+    flex-wrap: wrap;
+
+    @include breakpoint(md) {
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+  }
+}
+
+// ── Head internals ────────────────────────────────────────────────────────────
+.level-head-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+}
+
+.level-num {
+  font-family: $font-display;
+  font-size: $fs-lg;
+  font-weight: 700;
+  letter-spacing: $tracking-tight;
+  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: $radius-sm;
+  padding: 4px 10px;
+  flex-shrink: 0;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.level-head-text {
+  display: grid;
+  gap: $space-1;
+  text-align: center;
+}
+
+.level-eyebrow {
+  font-size: $fs-xs;
+  letter-spacing: $tracking-wider;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+  text-align: center;
+}
+
+.level-title {
+  font-size: $fs-lg;
+  font-weight: 700;
+  color: $color-text-inverse;
+  line-height: $lh-tight;
+  margin: 0;
+
+  @include breakpoint(md) {
+    font-size: $fs-xl;
+  }
+}
+
+.level-audience {
+  font-size: $fs-sm;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+  text-align: center;
+}
+
+.level-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  justify-content: center;
+}
+
+.level-badge-pill {
+  font-size: $fs-xs;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: $radius-pill;
+  padding: 3px 10px;
+}
+
+// ── Vision ────────────────────────────────────────────────────────────────────
+.vision-label {
+  font-size: $fs-xs;
+  font-weight: 700;
+  letter-spacing: $tracking-wider;
+  text-transform: uppercase;
+  color: $color-accent;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-align: center;
+
+  @include breakpoint(md) {
+    margin-top: 3px;
+    text-align: left;
+  }
+}
+
+.vision-text {
+  font-size: $fs-sm;
+  font-style: italic;
+  color: $color-text-muted;
+  line-height: $lh-base;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+
+  @include breakpoint(md) {
+    text-align: left;
+  }
+}
+
+// ── Content blocks ────────────────────────────────────────────────────────────
+.block-title {
+  font-size: $fs-xs;
+  font-weight: 700;
+  letter-spacing: $tracking-wider;
+  text-transform: uppercase;
+  color: $color-primary;
+  margin: 0 0 $space-3;
+}
+
+.obj-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: $space-2;
+
+  li {
+    position: relative;
+    padding-left: $space-4;
+    font-size: $fs-sm;
+    color: $color-text-muted;
+    line-height: $lh-base;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: $color-accent;
+      box-shadow: 0 0 10px rgba($color-pink, 0.55);
+    }
+  }
+}
+
+.mod-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: $space-3;
+}
+
+.mod-item {
+  display: flex;
+  gap: $space-3;
+  align-items: flex-start;
+}
+
+.mod-code {
+  font-family: $font-display;
+  font-size: $fs-xs;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: $color-primary;
+  background: $color-primary-50;
+  border-radius: $radius-sm;
+  padding: 2px 7px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.mod-name {
+  font-size: $fs-sm;
+  font-weight: 600;
+  color: $color-text;
+  line-height: 1.35;
+  margin: 0 0 2px;
+}
+
+.mod-topics {
+  font-size: $fs-xs;
+  color: $color-text-muted;
+  line-height: $lh-base;
+  margin: 0;
+}
+
+// ── Applications ─────────────────────────────────────────────────────────────
+.apps-label {
+  font-size: $fs-xs;
+  font-weight: 700;
+  letter-spacing: $tracking-wider;
+  text-transform: uppercase;
+  color: $color-text-muted;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.apps-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+
+.app-tag {
+  font-size: $fs-xs;
+  color: $color-text-muted;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  padding: 4px 10px;
+}

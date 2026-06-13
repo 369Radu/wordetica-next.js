@@ -1,0 +1,240 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+@use 'admin-page' as admin;
+
+.page {
+  @include admin.admin-page;
+  min-width: 0;
+  max-width: 100%;
+}
+
+header {
+  @include admin.admin-page-header;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  width: 100%;
+
+  &__btn {
+    @include button-reset;
+    padding: $space-2 $space-4;
+    border-radius: $radius-pill;
+    font-size: $fs-sm;
+    font-weight: 600;
+    color: $color-text-muted;
+    border: 1px solid $color-border;
+    background: $color-surface;
+    transition:
+      background $transition-fast,
+      color $transition-fast,
+      border-color $transition-fast;
+
+    &:hover {
+      color: $color-primary-dark;
+      border-color: rgba($color-teal, 0.45);
+    }
+
+    &.is-active {
+      color: $color-text-inverse;
+      background: linear-gradient(135deg, $color-teal 0%, $color-primary-dark 100%);
+      border-color: transparent;
+    }
+  }
+}
+
+.draft-banner {
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: rgba($color-pink, 0.08);
+  border: 1px solid rgba($color-pink, 0.25);
+  font-size: $fs-sm;
+  color: $color-text-muted;
+
+  p { margin: 0; }
+  strong { color: $color-text; }
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 2px $space-2;
+  border-radius: $radius-pill;
+  font-size: $fs-xs;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba($color-mint, 0.2);
+  color: $color-primary-dark;
+
+  &--draft {
+    background: rgba($color-pink, 0.15);
+    color: $color-accent;
+  }
+
+  &--scheduled {
+    background: rgba($color-teal, 0.12);
+    color: $color-teal;
+  }
+}
+
+tr.is-draft td:nth-child(2) a {
+  font-style: italic;
+}
+
+tr.is-selected td {
+  background: rgba($color-teal, 0.06) !important;
+}
+
+.toolbar {
+  @include admin.admin-toolbar;
+
+  .toolbar__divider {
+    width: 1px;
+    height: 1.5rem;
+    background: rgba($color-teal, 0.25);
+    margin-inline: $space-2;
+    flex-shrink: 0;
+    align-self: center;
+  }
+}
+
+.row-check {
+  width: 1rem;
+  height: 1rem;
+  accent-color: $color-teal;
+  cursor: pointer;
+}
+
+.table-wrap {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  background: $color-surface;
+}
+
+.articles-table {
+  width: 100%;
+  min-width: 52rem;
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+    padding: $space-3 $space-4;
+    border-bottom: 1px solid $color-border-soft;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    min-width: 0;
+  }
+
+  th {
+    background: rgba($color-mint, 0.10);
+    font-size: $fs-xs;
+    text-transform: uppercase;
+    letter-spacing: $tracking-wider;
+    color: $color-primary-dark;
+    font-weight: 700;
+  }
+
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tr:hover td {
+    background: rgba($color-mint, 0.04);
+  }
+
+  .col-select {
+    width: 3rem;
+    padding-left: $space-3;
+    padding-right: $space-2;
+    vertical-align: middle;
+  }
+
+  .col-title {
+    width: 24%;
+  }
+
+  .col-status {
+    width: 8%;
+  }
+
+  .col-category {
+    width: 16%;
+  }
+
+  .col-subcategory {
+    width: 14%;
+  }
+
+  .col-language {
+    width: 9%;
+    white-space: nowrap;
+  }
+
+  .col-author {
+    width: 12%;
+  }
+
+  .col-publish {
+    width: 10%;
+  }
+
+  .col-created {
+    width: 10%;
+  }
+
+  .col-actions {
+    width: 12%;
+  }
+
+  .title-link {
+    color: $color-primary-dark;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-accent;
+      text-decoration: underline;
+    }
+  }
+
+  .actions-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: $space-2 $space-3;
+  }
+}
+
+.link {
+  @include button-reset;
+  color: $color-primary-dark;
+  font-weight: 600;
+  transition: color $transition-fast;
+
+  &--danger { color: $color-error; }
+  &:hover { text-decoration: underline; color: $color-accent; }
+  &--danger:hover { color: $color-error; }
+  &:disabled { opacity: 0.45; pointer-events: none; }
+}
+
+.state {
+  padding: $space-6;
+  text-align: center;
+  color: $color-text-muted;
+  background: $color-surface;
+  border: 1px dashed rgba($color-teal, 0.25);
+  border-radius: $radius-lg;
+
+  &--error { color: $color-error; border-color: rgba($color-error, 0.30); border-style: solid; }
+}

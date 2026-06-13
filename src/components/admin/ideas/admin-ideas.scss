@@ -1,0 +1,203 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+@use '../admin-page' as admin;
+
+.page {
+  @include admin.admin-page;
+}
+
+.page__head {
+  @include admin.admin-page-header;
+}
+
+.page__error {
+  margin: 0;
+}
+
+.ideas-split {
+  display: grid;
+  gap: $space-5;
+  align-items: start;
+
+  @include breakpoint(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ideas-saved {
+  @include card;
+  display: grid;
+  gap: $space-4;
+  padding: $space-5;
+  align-self: start;
+  height: auto;
+
+  &__heading {
+    margin: 0;
+    font-size: $fs-md;
+    color: $color-primary-dark;
+    text-align: center;
+  }
+
+  &__empty {
+    text-align: center;
+    padding: $space-4 0;
+    max-width: 28ch;
+    margin-inline: auto;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: $space-3;
+  }
+}
+
+.idea-card {
+  border: 1px solid rgba($color-teal, 0.2);
+  border-radius: $radius-md;
+  padding: $space-4;
+  display: grid;
+  gap: $space-3;
+  background: rgba($color-white, 0.7);
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &--active {
+    border-color: rgba($color-teal, 0.45);
+    box-shadow: inset 3px 0 0 0 $color-accent;
+    background: rgba($color-mint, 0.1);
+  }
+
+  &__head {
+    display: grid;
+    gap: $space-1;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: $fs-base;
+    font-weight: 600;
+    color: $color-text;
+    line-height: $lh-tight;
+    word-break: break-word;
+  }
+
+  &__date {
+    font-size: $fs-xs;
+    color: $color-text-muted;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+
+  &__btn {
+    @include button-reset;
+    padding: $space-2 $space-3;
+    border-radius: $radius-sm;
+    font-size: $fs-xs;
+    font-weight: 600;
+    color: $color-primary-dark;
+    background: rgba($color-mint, 0.15);
+    border: 1px solid rgba($color-teal, 0.22);
+    cursor: pointer;
+    transition: background $transition-fast, color $transition-fast;
+
+    &:hover {
+      background: rgba($color-mint, 0.28);
+    }
+
+    &--danger {
+      color: $color-error;
+      background: rgba($color-error, 0.08);
+      border-color: rgba($color-error, 0.25);
+
+      &:hover {
+        background: rgba($color-error, 0.14);
+      }
+    }
+  }
+}
+
+.ideas-compose {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding: $space-5;
+  min-height: 420px;
+  position: sticky;
+  top: $space-5;
+  align-self: start;
+
+  &__heading {
+    margin: 0;
+    font-size: $fs-md;
+    color: $color-primary-dark;
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    flex: 1;
+    min-height: 0;
+  }
+
+  &__title {
+    font-size: $fs-lg;
+    font-weight: 600;
+  }
+
+  .field--grow {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  &__body {
+    flex: 1;
+    min-height: 280px;
+    resize: vertical;
+    line-height: $lh-loose;
+    font-family: inherit;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+    flex-wrap: wrap;
+    padding-top: $space-2;
+    border-top: 1px solid rgba($color-mint, 0.25);
+  }
+}
+
+.save-hint {
+  margin: 0;
+  font-size: $fs-sm;
+  color: $color-text-muted;
+
+  &--ok {
+    color: $color-primary-dark;
+    font-weight: 600;
+  }
+
+  &--error {
+    color: $color-error;
+    font-weight: 600;
+  }
+}
+
+.state {
+  color: $color-text-muted;
+  font-size: $fs-sm;
+  margin: 0;
+}

@@ -1,0 +1,190 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+
+// ── Back link ─────────────────────────────────────────────────────────────────
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  margin-bottom: $space-4;
+  color: $color-text-muted;
+  font-weight: 500;
+  font-size: $fs-sm;
+
+  &:hover { color: $color-primary-dark; }
+}
+
+// ── Page header ───────────────────────────────────────────────────────────────
+.header {
+  display: grid;
+  gap: $space-3;
+  max-width: 760px;
+  margin: 0 auto $space-5;
+  justify-items: center;
+  text-align: center;
+}
+
+.service-icon {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  background: $gradient-brand;
+  color: $color-text-inverse;
+  border-radius: $radius-lg;
+  font-size: $fs-2xl;
+  box-shadow: $glow-mint;
+}
+
+.positioning {
+  font-size: $fs-md;
+  color: $color-text-muted;
+}
+
+.langs {
+  display: flex;
+  gap: $space-2;
+  flex-wrap: wrap;
+}
+
+// ── Intro ─────────────────────────────────────────────────────────────────────
+.intro {
+  max-width: 760px;
+  font-size: $fs-md;
+  color: $color-text-muted;
+  line-height: $lh-loose;
+  margin: 0 auto $space-7;
+  text-align: center;
+}
+
+// ── Sections grid ─────────────────────────────────────────────────────────────
+.sections {
+  display: grid;
+  gap: $space-6;
+
+  @include breakpoint(lg) {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+// ── Section card ──────────────────────────────────────────────────────────────
+.section-card {
+  @include card;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &.section--teal .section-card__head { background: $gradient-brand; }
+  &.section--mint .section-card__head { background: linear-gradient(135deg, $color-mint 0%, $color-teal 100%); }
+
+  // ── Head ─────────────────────────────────────────────────────────────────
+  &__head {
+    padding: $space-5 $space-6;
+    display: grid;
+    gap: $space-3;
+  }
+
+  // ── Body ─────────────────────────────────────────────────────────────────
+  &__body {
+    padding: $space-5 $space-6;
+    display: grid;
+    gap: $space-5;
+    flex: 1;
+  }
+}
+
+// ── Head elements ─────────────────────────────────────────────────────────────
+.section-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-3;
+}
+
+.section-icon {
+  font-size: $fs-xl;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: $radius-md;
+  color: $color-text-inverse;
+}
+
+.section-title {
+  font-size: $fs-xl;
+  font-weight: 700;
+  color: $color-text-inverse;
+  line-height: $lh-tight;
+  margin: 0;
+}
+
+.section-desc {
+  font-size: $fs-sm;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: $lh-base;
+  margin: 0;
+  text-align: center;
+}
+
+// ── Side blocks (tools + outcomes) ────────────────────────────────────────────
+.side-blocks {
+  display: grid;
+  gap: $space-5;
+
+  @include breakpoint(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// ── Content block ─────────────────────────────────────────────────────────────
+.block-title {
+  font-size: $fs-xs;
+  font-weight: 700;
+  letter-spacing: $tracking-wider;
+  text-transform: uppercase;
+  color: $color-primary;
+  margin: 0 0 $space-3;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    background: $gradient-accent;
+    border-radius: $radius-pill;
+    vertical-align: middle;
+    margin-right: $space-2;
+  }
+}
+
+.bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: $space-2;
+
+  li {
+    position: relative;
+    padding-left: $space-4;
+    font-size: $fs-sm;
+    color: $color-text-muted;
+    line-height: $lh-base;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: $color-accent;
+      box-shadow: 0 0 10px rgba($color-pink, 0.5);
+    }
+  }
+}

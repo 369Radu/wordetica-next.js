@@ -1,0 +1,318 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+
+// Spațiu sub header sticky (logo + padding).
+$hero-header-gap: clamp(2rem, 5vw, 3.5rem);
+
+.hero {
+  width: 100%;
+  padding: $hero-header-gap 0 $space-5;
+  margin: 0;
+  overflow: hidden;
+  background: $color-white;
+
+  &__stack {
+    width: 100%;
+    display: grid;
+    gap: $space-4;
+  }
+
+  &__shell {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    aspect-ratio: 1536 / 628;
+    min-height: clamp(10rem, 28vw, 19rem);
+    max-height: clamp(12rem, 36vw, 22rem);
+    overflow: hidden;
+    border-radius: $radius-md;
+
+    // 10mm fade alb: exterior → interior (sus, jos, stânga, dreapta).
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      border-radius: inherit;
+      background:
+        linear-gradient(180deg, $color-white 0%, transparent 10mm),
+        linear-gradient(0deg, $color-white 0%, transparent 10mm),
+        linear-gradient(90deg, $color-white 0%, transparent 10mm),
+        linear-gradient(270deg, $color-white 0%, transparent 10mm);
+    }
+  }
+
+  &__img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    object-position: center 68%;
+  }
+
+  &__panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-2;
+    width: 100%;
+    max-width: min(64rem, 100%);
+    margin-inline: auto;
+    padding-inline: $space-4;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-2;
+    width: 100%;
+  }
+
+  &__title-line {
+    display: block;
+  }
+
+  &__title {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    font-size: clamp(1.35rem, 2vw + 0.75rem, 2.35rem);
+    letter-spacing: $tracking-tight;
+    line-height: 1.12;
+    text-align: center;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    color: $color-text;
+  }
+
+  &__lead {
+    width: 100%;
+    max-width: min(44rem, 100%);
+    min-width: 0;
+    margin: 0;
+    font-size: clamp($fs-sm, 0.85vw + 0.5rem, $fs-md);
+    color: $color-text-muted;
+    line-height: $lh-base;
+    text-align: center;
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+    color: $color-text-muted;
+  }
+
+  &__cta {
+    position: absolute;
+    top: clamp(0.6rem, 2.2vw, 1.25rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: $space-3;
+    width: max-content;
+  }
+
+  .wo-tag {
+    align-self: center;
+    font-size: $fs-xs;
+  }
+
+  @media (max-width: 767px) {
+    padding-bottom: $space-4;
+
+    .wo-tag {
+      font-size: 0.45rem;
+      padding: 3px 8px;
+    }
+
+    &__shell {
+      min-height: clamp(11rem, 38vw, 16rem);
+      max-height: none;
+    }
+
+    &__panel { gap: $space-1; padding-inline: $space-3; }
+
+    &__title {
+      font-size: clamp(1.1rem, 4.2vw, 1.4rem);
+      line-height: 1.2;
+    }
+
+    &__lead {
+      font-size: $fs-sm;
+      line-height: 1.4;
+    }
+
+    &__cta {
+      position: absolute;
+      top: clamp(0.4rem, 2vw, 0.9rem);
+      left: 50%;
+      transform: translateX(-50%);
+      flex-wrap: nowrap;
+      gap: $space-2;
+      max-width: 18.5rem;
+
+      .wo-btn {
+        flex: 1 1 0;
+        min-width: 0;
+        min-height: 2.125rem;
+        padding: $space-1 $space-2;
+        font-size: 0.7rem;
+        font-weight: 600;
+        line-height: 1.2;
+        white-space: normal;
+        text-align: center;
+      }
+    }
+
+    &__img { object-position: center 64%; }
+  }
+
+  @include breakpoint(md) {
+    &__title-line { white-space: nowrap; }
+    &__panel { gap: $space-2; }
+    &__img { object-position: center 70%; }
+  }
+}
+
+.section-header {
+  max-width: 40rem;
+  margin: 0 auto $space-7;
+  display: grid;
+  gap: $space-4;
+  justify-items: center;
+  text-align: center;
+
+  p {
+    color: $color-text-muted;
+    font-size: $fs-md;
+    margin: 0;
+    line-height: $lh-loose;
+  }
+}
+
+.carousel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: $space-3;
+  width: 100%;
+
+  &__nav {
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid rgba($color-teal, 0.35);
+    background: $color-white;
+    color: $color-primary;
+    font-size: 1.35rem;
+    line-height: 1;
+    transition:
+      background $transition-fast,
+      border-color $transition-fast,
+      color $transition-fast;
+
+    &:hover:not(:disabled) {
+      background: rgba($color-mint, 0.15);
+      border-color: $color-teal;
+      color: $color-accent;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  &__viewport {
+    overflow: hidden;
+    width: 100%;
+    min-width: 0;
+  }
+
+  &__track {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition: transform 1.17s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  &__slide--testimonial {
+    min-width: 0;
+    padding: 0 $space-2;
+    box-sizing: border-box;
+  }
+}
+
+.testimonials {
+  background: rgba($color-mint, 0.06);
+  padding-bottom: $space-6;
+
+  &__count {
+    margin: $space-4 0 0;
+    text-align: center;
+    font-size: $fs-xs;
+    color: $color-text-muted;
+  }
+}
+
+.testimonial {
+  @include card;
+  margin: 0;
+  height: 100%;
+  min-height: 11rem;
+  padding: $space-5;
+  display: grid;
+  gap: $space-4;
+  align-content: space-between;
+  text-align: center;
+  transition:
+    transform $transition-base,
+    box-shadow $transition-base,
+    border-color $transition-base;
+
+  &__quote {
+    margin: 0;
+    color: $color-text;
+    font-size: $fs-sm;
+    line-height: $lh-loose;
+    font-style: italic;
+  }
+
+  footer {
+    display: grid;
+    gap: $space-1;
+  }
+
+  &__name {
+    font-style: normal;
+    font-weight: 700;
+    color: $color-primary;
+  }
+
+  &__role {
+    font-size: $fs-xs;
+    color: $color-text-muted;
+  }
+}
+

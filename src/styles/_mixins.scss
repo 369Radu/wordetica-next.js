@@ -1,0 +1,162 @@
+@use 'theme' as *;
+
+@mixin container {
+  width: 100%;
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: $container-pad;
+}
+
+@mixin breakpoint($size) {
+  @if $size == sm { @media (min-width: $bp-sm) { @content; } }
+  @else if $size == md { @media (min-width: $bp-md) { @content; } }
+  @else if $size == lg { @media (min-width: $bp-lg) { @content; } }
+  @else if $size == xl { @media (min-width: $bp-xl) { @content; } }
+}
+
+@mixin focus-ring($color: $color-accent) {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+
+  &:focus-visible {
+    outline-color: $color;
+  }
+}
+
+@mixin card {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  transition: transform $transition-base, box-shadow $transition-base, border-color $transition-base;
+}
+
+@mixin glass {
+  background: rgba($color-white, 0.72);
+  backdrop-filter: saturate(150%) blur(14px);
+  border: 1px solid rgba($color-mint, 0.22);
+  border-radius: $radius-lg;
+}
+
+@mixin button-reset {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+@mixin gradient-text($gradient: $gradient-cosmic) {
+  background: $gradient;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/** Fades hard left/right edges of a centered banner PNG into the page background. */
+@mixin faded-banner-image(
+  $image-url,
+  $photo-size: 63% auto,
+  $photo-position: center 42%,
+  $photo-edge: 18.5%,
+  $photo-fade: 11%,
+  $vertical-wash: true
+) {
+  background: $color-white;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url($image-url) $photo-position / $photo-size no-repeat;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.08) calc(#{$photo-edge} - #{$photo-fade}),
+      rgba(0, 0, 0, 0.55) calc(#{$photo-edge} - 5%),
+      #000 calc(#{$photo-edge} + 6%),
+      #000 calc(100% - #{$photo-edge} - 6%),
+      rgba(0, 0, 0, 0.55) calc(100% - #{$photo-edge} + 5%),
+      rgba(0, 0, 0, 0.08) calc(100% - #{$photo-edge} + #{$photo-fade}),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.08) calc(#{$photo-edge} - #{$photo-fade}),
+      rgba(0, 0, 0, 0.55) calc(#{$photo-edge} - 5%),
+      #000 calc(#{$photo-edge} + 6%),
+      #000 calc(100% - #{$photo-edge} - 6%),
+      rgba(0, 0, 0, 0.55) calc(100% - #{$photo-edge} + 5%),
+      rgba(0, 0, 0, 0.08) calc(100% - #{$photo-edge} + #{$photo-fade}),
+      transparent 100%
+    );
+    box-shadow:
+      inset clamp(5rem, 16vw, 11rem) 0 clamp(4rem, 12vw, 9rem) $color-white,
+      inset clamp(-5rem, -16vw, -11rem) 0 clamp(4rem, 12vw, 9rem) $color-white;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    $side-fades:
+      linear-gradient(
+        90deg,
+        $color-white 0%,
+        $color-white calc(#{$photo-edge} - 2%),
+        rgba($color-white, 0.98) calc(#{$photo-edge} + 1%),
+        rgba($color-white, 0.72) calc(#{$photo-edge} + 5%),
+        transparent calc(#{$photo-edge} + 10%)
+      ),
+      linear-gradient(
+        270deg,
+        $color-white 0%,
+        $color-white calc(#{$photo-edge} - 2%),
+        rgba($color-white, 0.98) calc(#{$photo-edge} + 1%),
+        rgba($color-white, 0.72) calc(#{$photo-edge} + 5%),
+        transparent calc(#{$photo-edge} + 10%)
+      );
+
+    @if $vertical-wash {
+      background:
+        $side-fades,
+        linear-gradient(
+          180deg,
+          rgba($color-white, 0.52) 0%,
+          rgba($color-white, 0.42) 50%,
+          rgba($color-white, 0.48) 100%
+        );
+    } @else {
+      background: $side-fades;
+    }
+  }
+}
+
+/** White lateral fade for a full-width `<img>` inside a positioned wrapper. */
+@mixin image-side-fade($fade-width: clamp(2rem, 12%, 6rem)) {
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: $fade-width;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(90deg, $color-white 0%, $color-white 40%, transparent 100%);
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(270deg, $color-white 0%, $color-white 40%, transparent 100%);
+  }
+}

@@ -1,0 +1,628 @@
+@use 'theme' as *;
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.header {
+  max-width: 720px;
+  margin: 0 auto $space-6;
+  display: grid;
+  gap: $space-3;
+  justify-items: center;
+
+  p {
+    color: $color-text-muted;
+    font-size: $fs-md;
+    margin: 0;
+  }
+}
+
+// ── COgent sneak-peek modal ────────────────────────────────────────────────────
+.cogent-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba($color-primary-dark, 0.55);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-4;
+  animation: cogent-fade-in 0.25s ease;
+}
+
+.cogent-panel {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: $radius-xl;
+  background: $color-surface;
+  border: 1px solid rgba($color-teal, 0.3);
+  box-shadow:
+    0 32px 80px -20px rgba($color-teal, 0.35),
+    $glow-mint;
+  animation: cogent-slide-in 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.cogent-close {
+  @include button-reset;
+  position: absolute;
+  top: $space-4;
+  right: $space-4;
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  border-radius: $radius-sm;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: $color-text-muted;
+  background: rgba($color-teal, 0.08);
+  border: 1px solid rgba($color-teal, 0.15);
+  display: grid;
+  place-items: center;
+  transition: background $transition-fast, color $transition-fast;
+
+  &:hover {
+    color: $color-primary-dark;
+    background: rgba($color-mint, 0.22);
+  }
+}
+
+// ── Modal header ──────────────────────────────────────────────────────────────
+.cogent-header {
+  padding: $space-7 $space-6 $space-5;
+  display: grid;
+  gap: $space-3;
+  justify-items: center;
+  text-align: center;
+  background: $gradient-cosmic;
+  border-radius: $radius-xl $radius-xl 0 0;
+
+  &__eyebrow {
+    font-size: $fs-xs;
+    font-weight: 700;
+    letter-spacing: $tracking-wider;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 3px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: $radius-pill;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &__icon {
+    font-size: $fs-3xl;
+    width: 72px;
+    height: 72px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: $radius-lg;
+    color: $color-text-inverse;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: $fs-xl;
+    font-weight: 800;
+    letter-spacing: $tracking-tight;
+    color: $color-text-inverse;
+  }
+
+  &__tagline {
+    margin: 0;
+    font-size: $fs-sm;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: $lh-base;
+    max-width: 420px;
+  }
+}
+
+// ── Feature cards ─────────────────────────────────────────────────────────────
+.cogent-features {
+  display: grid;
+  gap: $space-4;
+  padding: $space-5 $space-5 0;
+
+  @include breakpoint(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cogent-feature {
+  border-radius: $radius-lg;
+  overflow: hidden;
+  border: 1px solid rgba($color-teal, 0.2);
+
+  &__head {
+    padding: $space-4 $space-5;
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  &__icon {
+    font-size: $fs-lg;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: $radius-md;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    color: $color-text-inverse;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: $fs-md;
+    font-weight: 700;
+    color: $color-text-inverse;
+    line-height: $lh-tight;
+  }
+
+  &__body {
+    padding: $space-4 $space-5;
+    background: $color-surface-alt;
+
+    p {
+      margin: 0;
+      font-size: $fs-sm;
+      color: $color-text-muted;
+      line-height: $lh-loose;
+    }
+  }
+
+  &--vibe .cogent-feature__head {
+    background: $gradient-brand;
+  }
+
+  &--agent .cogent-feature__head {
+    background: $gradient-accent;
+  }
+}
+
+// ── Modal footer ──────────────────────────────────────────────────────────────
+.cogent-footer {
+  margin: $space-5 $space-5 $space-5;
+  padding-top: $space-4;
+  border-top: 1px solid rgba($color-teal, 0.15);
+  font-size: $fs-sm;
+  color: $color-text-muted;
+  text-align: center;
+
+  a {
+    color: $color-teal;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover { color: $color-accent; }
+  }
+}
+
+@keyframes cogent-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes cogent-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.grid {
+  display: grid;
+  gap: $space-5;
+
+  @include breakpoint(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.service-card {
+  @include card;
+  position: relative;
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  overflow: hidden;
+  border-width: 1px;
+  transition:
+    transform $transition-base,
+    border-color $transition-base,
+    box-shadow $transition-base;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 55%;
+    pointer-events: none;
+    transition: opacity $transition-base;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 70%;
+    height: 40%;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  &:hover:not(.service-card--coming-soon) {
+    transform: translateY(-4px);
+
+    .service-card__icon {
+      color: $color-text-inverse;
+      box-shadow: $glow-mint;
+    }
+  }
+
+  &--mint {
+    background: linear-gradient(155deg, rgba($color-mint, 0.2) 0%, $color-surface 42%, $color-surface-alt 100%);
+    border-color: rgba($color-mint, 0.38);
+
+    &::before {
+      background: radial-gradient(circle at 100% 0%, rgba($color-mint, 0.35), transparent 68%);
+    }
+
+    &::after {
+      background: radial-gradient(ellipse at 0% 100%, rgba($color-teal, 0.1), transparent 70%);
+    }
+
+    .service-card__icon {
+      background: rgba($color-mint, 0.35);
+      color: $color-primary-dark;
+    }
+
+    &:hover .service-card__icon {
+      background: $gradient-brand;
+    }
+
+    &:hover {
+      border-color: rgba($color-mint, 0.55);
+      box-shadow: 0 20px 48px -26px rgba($color-mint, 0.55);
+    }
+  }
+
+  &--teal {
+    background: linear-gradient(155deg, rgba($color-teal, 0.12) 0%, $color-surface 48%, $color-surface-alt 100%);
+    border-color: rgba($color-teal, 0.32);
+
+    &::before {
+      background: radial-gradient(circle at 100% 0%, rgba($color-teal, 0.28), transparent 68%);
+    }
+
+    &::after {
+      background: radial-gradient(ellipse at 0% 100%, rgba($color-mint, 0.12), transparent 70%);
+    }
+
+    .service-card__icon {
+      background: rgba($color-teal, 0.14);
+      color: $color-primary-dark;
+    }
+
+    &:hover .service-card__icon {
+      background: linear-gradient(135deg, $color-teal 0%, $color-mint 100%);
+    }
+
+    &:hover {
+      border-color: rgba($color-teal, 0.48);
+      box-shadow: $glow-teal;
+    }
+  }
+
+  &--pink {
+    background: linear-gradient(155deg, rgba($color-pink-soft, 0.16) 0%, $color-surface 45%, rgba($color-mint, 0.08) 100%);
+    border-color: rgba($color-pink-soft, 0.35);
+
+    &::before {
+      background: radial-gradient(circle at 100% 0%, rgba($color-pink-soft, 0.32), transparent 68%);
+    }
+
+    &::after {
+      background: radial-gradient(ellipse at 0% 100%, rgba($color-mint, 0.14), transparent 70%);
+    }
+
+    .service-card__icon {
+      background: rgba($color-pink-soft, 0.22);
+      color: $color-accent-dark;
+    }
+
+    &:hover .service-card__icon {
+      background: $gradient-accent;
+    }
+
+    &:hover {
+      border-color: rgba($color-pink-soft, 0.5);
+      box-shadow: $glow-accent;
+    }
+  }
+
+  &--blend {
+    background: linear-gradient(
+      145deg,
+      rgba($color-mint, 0.16) 0%,
+      $color-surface 38%,
+      rgba($color-pink-soft, 0.1) 100%
+    );
+    border-color: rgba($color-mint, 0.28);
+
+    &::before {
+      background: radial-gradient(circle at 100% 0%, rgba($color-pink-soft, 0.22), transparent 65%);
+    }
+
+    &::after {
+      background: radial-gradient(ellipse at 0% 100%, rgba($color-mint, 0.18), transparent 70%);
+    }
+
+    .service-card__icon {
+      background: linear-gradient(135deg, rgba($color-mint, 0.35), rgba($color-pink-soft, 0.2));
+      color: $color-primary-dark;
+    }
+
+    &:hover .service-card__icon {
+      background: $gradient-cosmic;
+    }
+
+    &:hover {
+      border-color: rgba($color-teal, 0.35);
+      box-shadow:
+        0 18px 44px -24px rgba($color-mint, 0.4),
+        0 12px 32px -20px rgba($color-pink-soft, 0.35);
+    }
+  }
+
+  &--cosmic {
+    background: linear-gradient(
+      145deg,
+      rgba($color-mint, 0.14) 0%,
+      rgba($color-teal, 0.08) 35%,
+      rgba($color-pink-soft, 0.12) 100%
+    );
+    border-color: rgba($color-teal, 0.3);
+
+    &::before {
+      background: radial-gradient(circle at 90% 10%, rgba($color-pink, 0.2), transparent 60%);
+    }
+
+    &::after {
+      background: radial-gradient(ellipse at 10% 90%, rgba($color-mint, 0.22), transparent 65%);
+    }
+  }
+
+  &__icon {
+    font-size: $fs-xl;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: $radius-md;
+    transition:
+      background $transition-base,
+      color $transition-base,
+      box-shadow $transition-base,
+      transform $transition-base;
+  }
+
+  &__motto {
+    width: 100%;
+    text-align: center;
+    font-size: $fs-sm;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: $tracking-wide;
+    color: $color-text-muted;
+    margin: $space-1 0 0;
+    padding: $space-2 0;
+    border-top: 1px solid rgba($color-mint, 0.3);
+    border-bottom: 1px solid rgba($color-mint, 0.3);
+    animation: motto-pulse 3.6s ease-in-out infinite;
+    will-change: opacity, color;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-3;
+  }
+
+  &__langs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    justify-content: flex-end;
+  }
+
+  &__lang {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: $tracking-wider;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: $radius-pill;
+    background: rgba($color-teal, 0.08);
+    color: $color-primary-dark;
+    border: 1px solid rgba($color-teal, 0.22);
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    color: $color-text-muted;
+    margin: 0;
+  }
+
+
+  &__bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+
+  a.wo-btn,
+  .wo-btn--soon {
+    align-self: flex-start;
+  }
+}
+
+.service-card--coming-soon {
+  cursor: pointer;
+  border-style: dashed;
+  border-color: rgba($color-teal, 0.4);
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: rgba($color-mint, 0.55);
+    box-shadow:
+      0 20px 44px -24px rgba($color-teal, 0.35),
+      0 0 0 1px rgba($color-mint, 0.2);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-mint;
+    outline-offset: 3px;
+  }
+
+  .service-card__icon--soon {
+    background: $gradient-cosmic;
+    color: $color-text-inverse;
+  }
+}
+
+.service-card__badge {
+  position: absolute;
+  top: $space-4;
+  right: $space-4;
+  z-index: 2;
+  pointer-events: none;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: $tracking-wider;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: $radius-pill;
+  color: $color-primary-dark;
+  background: rgba($color-mint, 0.22);
+  border: 1px solid rgba($color-mint, 0.4);
+}
+
+.wo-btn--soon {
+  @include button-reset;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-3 $space-5;
+  font-size: $fs-sm;
+  font-weight: 600;
+  color: $color-primary-dark;
+  background: linear-gradient(135deg, rgba($color-mint, 0.4), rgba($color-teal, 0.12));
+  border: 1px solid rgba($color-mint, 0.55);
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    box-shadow $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    background: linear-gradient(135deg, rgba($color-mint, 0.55), rgba($color-teal, 0.2));
+    box-shadow: $glow-mint;
+    color: $color-primary-dark;
+  }
+
+  &.wo-pulse-green:hover {
+    transform: none;
+  }
+}
+
+.soon-label {
+  display: flex;
+  align-items: center;
+  gap: $space-1;
+  transition:
+    transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.22s ease;
+
+  &--default {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  &--hover {
+    position: absolute;
+    transform: translateY(110%);
+    opacity: 0;
+  }
+}
+
+.wo-btn--soon:hover {
+  .soon-label--default {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+
+  .soon-label--hover {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.wo-tag--muted {
+  opacity: 0.75;
+  background: rgba($color-teal, 0.06);
+  border-color: rgba($color-teal, 0.15);
+}
+
+@keyframes motto-pulse {
+  0%, 100% {
+    opacity: 0.55;
+    color: $color-text-muted;
+  }
+  50% {
+    opacity: 1;
+    color: $color-teal;
+  }
+}
+
+.grid .service-card:nth-child(1) .service-card__motto { animation-delay: 0s; }
+.grid .service-card:nth-child(2) .service-card__motto { animation-delay: 0.9s; }
+.grid .service-card:nth-child(3) .service-card__motto { animation-delay: 1.8s; }
+.grid .service-card:nth-child(4) .service-card__motto { animation-delay: 2.7s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .service-card__motto {
+    animation: none;
+  }
+
+  .service-card--coming-soon .wo-btn--soon.wo-pulse-green {
+    animation: none;
+  }
+}
