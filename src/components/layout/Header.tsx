@@ -34,7 +34,7 @@ export function Header() {
   const isActive = (path: string) =>
     path === "/"
       ? pathname === "/"
-      : pathname === path || pathname.startsWith(`${path}/`);
+      : pathname === path || pathname?.startsWith(`${path}/`);
 
   const toggleMenu = () => setMenuOpen((open) => !open);
   const closeMenu = () => setMenuOpen(false);

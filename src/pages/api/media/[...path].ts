@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import path from "path";
-// @ts-expect-error - JS ESM backend module without type declarations
 import { config } from "@/server/config.js";
 
 const CONTENT_TYPES: Record<string, string> = {

@@ -37,7 +37,7 @@ function messageInvalid(value: string): boolean {
 
 export function Contact() {
   const searchParams = useSearchParams();
-
+  const topic = searchParams?.get('topic') ?? "";
   const [form, setForm] = useState({ ...EMPTY_FORM });
   const [touched, setTouched] = useState<Record<FieldName, boolean>>({ ...EMPTY_FLAGS });
   const [dirty, setDirty] = useState<Record<FieldName, boolean>>({ ...EMPTY_FLAGS });
@@ -47,7 +47,7 @@ export function Contact() {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
-    const topic = searchParams.get("topic")?.trim();
+    // const topic = searchParams.get("topic")?.trim();
     if (!topic) return;
 
     setForm((prev) => ({
@@ -57,7 +57,7 @@ export function Contact() {
         `I'd love to read a Wordetica article about ${topic}.\n\n` +
         "Here is what interests me:\n\n",
     }));
-  }, [searchParams]);
+  }, [topic]);
 
   const invalid: Record<FieldName, boolean> = {
     name: nameInvalid(form.name),

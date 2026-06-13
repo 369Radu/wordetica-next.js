@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // The Express application is itself a (req, res) request handler. We pass the
 // raw Next.js request/response straight through so all routing, controllers,
 // middleware and DB logic run exactly as in the original backend.
-// @ts-expect-error - JS ESM backend module without type declarations
+
 import app from "@/server/index.js";
 
 export const config = {
@@ -16,6 +16,6 @@ export const config = {
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  // @ts-expect-error - Express app is callable as a Node (req, res) handler
+
   return app(req, res);
 }
